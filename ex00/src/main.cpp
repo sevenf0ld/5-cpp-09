@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:45:38 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/21 13:12:47 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:03:07 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,95 @@ std::string	trim_str(std::string &str)
 	return (ret);
 }
 
-int	err_free_date(std::string date)
+int	validate_ymd(std::string token, char flag)
+{
+	int	digit = atoi(token.c_str());
+
+
+	if (flag == 'Y')
+	{
+		if (token.size() != 4)
+			return (FORMAT_ERR("\'" + token + "\'" + " not in line with the date format `YYYY`"), FALSE);
+	}
+	else if (flag == 'M')
+	{
+		if (token.size() != 2)
+			return (FORMAT_ERR("\'" + token + "\'" + " not in line with the date format `MM`"), FALSE);
+		if (digit < 1 || digit > 12)
+			return (FORMAT_ERR("12 months max in a year."), FALSE);
+	}
+	else if (flag == 'D')
+	{
+		if (token.size() != 2)
+			return (FORMAT_ERR("\'" + token + "\'" + " not in line with the date format `DD`"), FALSE);
+		if (digit < 1 || digit > 31)
+			return (FORMAT_ERR("31 days max in a month."), FALSE);
+	}
+
+	return (TRUE);
+}
+
+int	is_leap_year(int yr)
+{
+	if (yr % 400 == 0)
+		return (TRUE);
+	else if (yr % 100 == 0)
+		return (FALSE);
+	else if (yr % 4 == 0)
+		return (TRUE);
+	return (FALSE);
+}
+
+int	err_free_date(int yr, int mth, int dt)
+{
+	if (is_leap_year(yr) == FALSE)
+		if (mth == 2 && dt > 28)
+			return (FORMAT_ERR("Only 28 days in Feb for non-leap years."), FALSE);
+
+	if ((mth == 4 || mth == 6 || mth == 9 || mth == 11) && dt > 30)
+		return (FORMAT_ERR("Only 30 days in Apr, Jun, Sept and Nov."), FALSE);
+
+	return (TRUE);
+}
+
+int	validate_date(std::string date)
 {
 	std::stringstream	date_stream(date);
 	std::string	token;
 	int	num = 0;
+	int	yr;
+	int	mth;
+	int	dt;
 	while (std::getline(date_stream, token, '-'))
 	{
 		if (token.find_first_not_of(" ") == std::string::npos)
 			return (FORMAT_ERR("\'" + date + "\'" + " not in line with the date format `YYYY-MM-DD`: < 3 tokens or all spaces for either"), FALSE);
-		if (num == 0 && token.size() != 4)
-			return (FORMAT_ERR("\'" + date + "\'" + " not in line with the date format `YYYY-MM-DD`: YEAR"), FALSE);
-		if (num == 1 && token.size() != 2)
-			return (FORMAT_ERR("\'" + date + "\'" + " not in line with the date format `YYYY-MM-DD`: MONTH"), FALSE);
-		if (num == 2 && token.size() != 2)
-			return (FORMAT_ERR("\'" + date + "\'" + " not in line with the date format `YYYY-MM-DD`: DATE"), FALSE);
+		if (num == 0 && validate_ymd(token, 'Y') == FALSE)
+			return (FALSE);
+		else if (num == 0)
+			yr = atoi(token.c_str());
+		if (num == 1 && validate_ymd(token, 'M') == FALSE)
+			return (FALSE);
+		else if (num == 1)
+			mth = atoi(token.c_str());
+		if (num == 2 && validate_ymd(token, 'D') == FALSE)
+			return (FALSE);
+		else if (num == 2)
+			dt = atoi(token.c_str());
 		num++;
 	}
+	if (err_free_date(yr, mth, dt) == FALSE)
+		return (FALSE);
 	if (num != 3)
 		return (FORMAT_ERR("\'" + date + "\'" + " not in line with the date format `Y-M-D`: no delim"), FALSE);
 	return (TRUE);
 }
 
-int	err_free_value(std::string value)
+int	validate_value(std::string value)
 {
 	// non-digits are converted to 0
-	double	val = std::strtod(value.c_str(), NULL);
-	if (!(val > 0 && val < 100))
+	float	val = std::strtof(value.c_str(), NULL);
+	if (!(val > 0.0f && val < 100.0f))
 		return (FORMAT_ERR("\'" + value + "\'" + " not in line with the value format `(0, 100)`"), FALSE);
 	return (TRUE);
 }
@@ -119,18 +181,12 @@ int	err_free_line(char *database)
 			std::string	trimmed_token = trim_str(token);
 			if (!trimmed_token.compare("date"))
 				num_header_d += 1;
-			else
-				if (num_pipe == 0)
-					err_free_date(trimmed_token);
+			else if (num_pipe == 0)
+				validate_date(trimmed_token);
 			if (!trimmed_token.compare("value"))
 				num_header_v += 1;
-			else
-				if (num_pipe == 1)
-					err_free_value(trimmed_token);
-			//if (trimmed_token.find_first_not_of("-") != std::string::npos)
-			//	err_free_date(trimmed_token);
-			//if (trimmed_token.find_first_not_of("1234567890.") != std::string::npos)
-			//	err_free_value(trimmed_token);
+			else if (num_pipe == 1)
+				validate_value(trimmed_token);
 
 			num_pipe++;
 		}

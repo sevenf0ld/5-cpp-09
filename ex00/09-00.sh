@@ -43,6 +43,9 @@ args=(
 	"input_date_14.txt"
 	"input_date_15.txt"
 	"input_date_16.txt"
+	"input_date_17.txt"
+	"input_date_18.txt"
+	"input_date_19.txt"
 	)
 
 # create a variable with the name of the executable

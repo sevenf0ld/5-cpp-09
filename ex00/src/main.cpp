@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:45:38 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/21 17:47:14 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/22 07:30:57 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	validate_ymd(std::string token, char flag)
 {
 	int	digit = atoi(token.c_str());
 
+	if (token.find_first_not_of("1234567890") != std::string::npos)
+		return (FORMAT_ERR("\'" + token + "\'" + " not in line with the date format `YYYY-MM-DD`: non-digit present"), FALSE);
 
 	if (flag == 'Y')
 	{

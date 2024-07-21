@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:45:38 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/21 17:03:07 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:47:14 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	err_free_date(int yr, int mth, int dt)
 	return (TRUE);
 }
 
-int	validate_date(std::string date)
+int	validate_date(std::string date, std::map<std::string, float> &btc_rate)
 {
 	std::stringstream	date_stream(date);
 	std::string	token;
@@ -107,15 +107,18 @@ int	validate_date(std::string date)
 		return (FALSE);
 	if (num != 3)
 		return (FORMAT_ERR("\'" + date + "\'" + " not in line with the date format `Y-M-D`: no delim"), FALSE);
+	btc_rate[date];
 	return (TRUE);
 }
 
-int	validate_value(std::string value)
+int	validate_value(std::string value, std::map<std::string, float> &btc_rate, std::string k)
 {
 	// non-digits are converted to 0
 	float	val = std::strtof(value.c_str(), NULL);
 	if (!(val > 0.0f && val < 100.0f))
 		return (FORMAT_ERR("\'" + value + "\'" + " not in line with the value format `(0, 100)`"), FALSE);
+
+	btc_rate[k] = val;
 	return (TRUE);
 }
 
@@ -146,7 +149,7 @@ int	err_free_arg(char **argv, int argc)
 	return (TRUE);
 }
 
-int	err_free_line(char *database)
+int	err_free_line(char *database, std::map<std::string, float> &btc_rate)
 {
 	std::ifstream	db_file(database);
 	if (!db_file)
@@ -173,6 +176,7 @@ int	err_free_line(char *database)
 		std::stringstream	line_stream(line);
 		std::string	token;
 		int	num_pipe = 0;
+		std::string k;
 		while (std::getline(line_stream, token, '|'))
 		{
 			if (token.find_first_not_of(" ") == std::string::npos)
@@ -182,11 +186,18 @@ int	err_free_line(char *database)
 			if (!trimmed_token.compare("date"))
 				num_header_d += 1;
 			else if (num_pipe == 0)
-				validate_date(trimmed_token);
+			{
+				k = trimmed_token;
+				if (validate_date(trimmed_token, btc_rate) == FALSE)
+					return (FALSE);
+			}
 			if (!trimmed_token.compare("value"))
 				num_header_v += 1;
 			else if (num_pipe == 1)
-				validate_value(trimmed_token);
+			{
+				if (validate_value(trimmed_token, btc_rate, k) == FALSE)
+					return (FALSE);
+			}
 
 			num_pipe++;
 		}
@@ -216,10 +227,17 @@ int	err_free_line(char *database)
 
 int	main(int argc, char **argv)
 {
+	//std::map<time_t, float>	btc_rate;
+	std::map<std::string, float>	btc_rate;
+
 	if (err_free_arg(argv, argc) == FALSE)
 		return (FORMAT_ERR("Usage: ./btc [filename].txt"), 1);
-	if (err_free_line(argv[1]) == FALSE)
+	if (err_free_line(argv[1], btc_rate) == FALSE)
 		return (1);
+
+	//print hash map in accordance with c98
+	for (std::map<std::string, float>::iterator i = btc_rate.begin(); i != btc_rate.end(); i++)
+		std::cout << i->first << " => " << i->second << std::endl;
 
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/16 13:37:33 by maiman-m          #+#    #+#              #
-#    Updated: 2024/07/21 13:07:05 by maiman-m         ###   ########.fr        #
+#    Updated: 2024/07/21 17:13:22 by maiman-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,6 @@ debug: re
 	$(RESET) && lldb -- $(NAME) $(ARG) && $(SILENT_FCLEAN)
 
 valgrind: re
-	$(RESET) && valgrind --leak-check=full --tool=memcheck -s --track-origins=yes ./$(NAME) && $(SILENT_FCLEAN)
+	$(RESET) && valgrind --leak-check=full --tool=memcheck -s --track-origins=yes ./$(NAME) $(ARG) && $(SILENT_FCLEAN)
 
 .PHONY: all clean fclean re

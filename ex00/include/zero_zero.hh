@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:46:57 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/20 13:37:16 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:15:41 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 #include <string>
 #include <fstream>
 #include <cstdlib>
-#include <cstring>
 #include <sstream>
+#include <map>
 
 #include "BitcoinExchange.hpp"
 

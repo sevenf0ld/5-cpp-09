@@ -5,23 +5,23 @@ green='\033[0;33m'
 blue='\033[0;34m'
 none='\033[m'
 
-# create an array of cmd line arguments
+# create an array of cmd inv arguments
 args=(
 	"input_valid_1.txt"
 	"input_valid_2.txt"
 	"input_valid_3.txt"
 
-	"input_line_2.txt"
-	"input_line_3.txt"
-	"input_line_4.txt"
-	"input_line_5.txt"
-	"input_line_6.txt"
-	"input_line_7.txt"
-	"input_line_8.txt"
-	"input_line_9.txt"
-	"input_line_10.txt"
-	"input_line_11.txt"
-	"input_line_12.txt"
+	"input_inv_2.txt"
+	"input_inv_3.txt"
+	"input_inv_4.txt"
+	"input_inv_5.txt"
+	"input_inv_6.txt"
+	"input_inv_7.txt"
+	"input_inv_8.txt"
+	"input_inv_9.txt"
+	"input_inv_10.txt"
+	"input_inv_11.txt"
+	"input_inv_12.txt"
 
 	"input_val_3.txt"
 	"input_val_4.txt"
@@ -29,6 +29,13 @@ args=(
 	"input_val_6.txt"
 	"input_val_7.txt"
 	"input_val_8.txt"
+
+	"input_date_4.txt"
+	"input_date_5.txt"
+	"input_date_6.txt"
+	"input_date_7.txt"
+	"input_date_8.txt"
+	"input_date_9.txt"
 	)
 
 # create a variable with the name of the executable

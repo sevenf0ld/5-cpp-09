@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:45:38 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/22 12:37:09 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:02:25 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int	validate_ymd(std::string token, char flag)
 }
 
 
-int	validate_date(std::string date)
+int	validate_date(std::string date, std::string &d)
 {
 	std::stringstream	date_stream(date);
 	std::string	token;
@@ -155,16 +155,18 @@ int	validate_date(std::string date)
 	if (num != 3)
 		return (FORMAT_ERR("\'" + date + "\'" + " not in line with the date format `Y-M-D`: no delim"), FALSE);
 
+	d = date;
 	return (TRUE);
 }
 
-int	validate_value(std::string value)
+int	validate_value(std::string value, double *v)
 {
 	// non-digits are converted to 0
 	float	val = std::strtof(value.c_str(), NULL);
 	if (!(val > 0.0f && val < 100.0f))
 		return (FORMAT_ERR("\'" + value + "\'" + " not in line with the value format `(0, 100)`"), FALSE);
 
+	*v = val;
 	return (TRUE);
 }
 
@@ -204,23 +206,27 @@ void	parse_input(char *database, std::map<std::string, float> btc_rate)
 		if (found == std::string::npos || r_found == std::string::npos)
 		{
 			FORMAT_ERR("\'" + line + "\'" + " not in line with the format `date | value`: no delim");
-			return ;
+			std::getline(input_file, line);
+			continue ;
 		}
 		if (found != r_found)
 		{
 			FORMAT_ERR("\'" + line + "\'" + "not in line with the format `date | value`: multi delims");
-			return ;
+			std::getline(input_file, line);
+			continue ;
 		}
 
 		std::stringstream	line_stream(line);
 		std::string	token;
 		int	num_pipe = 0;
+		std::string	d;
+		double	v;
 		while (std::getline(line_stream, token, '|'))
 		{
 			if (token.find_first_not_of(" ") == std::string::npos)
 			{
 				FORMAT_ERR("\'" + line + "\'" + " not in line with the format `date | value`: < 2 tokens or all spaces for either");
-				return ;
+				break ;
 			}
 
 			std::string	trimmed_token = trim_str(token);
@@ -228,19 +234,25 @@ void	parse_input(char *database, std::map<std::string, float> btc_rate)
 				num_header_d += 1;
 			else if (num_pipe == 0)
 			{
-				if (validate_date(trimmed_token) == FALSE)
-					return ;
+				if (validate_date(trimmed_token, d) == FALSE)
+					break ;
 			}
 			if (!trimmed_token.compare("value"))
 				num_header_v += 1;
 			else if (num_pipe == 1)
 			{
-				if (validate_value(trimmed_token) == FALSE)
-					return ;
+				if (validate_value(trimmed_token, &v) == FALSE)
+					break ;
 			}
-			(void) btc_rate;
 
 			num_pipe++;
+		}
+
+
+		if (num_pipe == 0 || num_pipe == 1)
+		{
+			std::getline(input_file, line);
+			continue ;
 		}
 
 		if (num_header_d != 1 || num_header_v != 1)
@@ -255,6 +267,26 @@ void	parse_input(char *database, std::map<std::string, float> btc_rate)
 		}
 
 		std::getline(input_file, line);
+
+		std::map<std::string, float>::iterator it = btc_rate.find(d);
+		// gives the prev/lesser date but not used bc non-existing dates are not detected this way
+		//std::map<std::string, float>::iterator it = btc_rate.lower_bound(d);
+		// gives the next/greater date
+		//std::map<std::string, float>::iterator it = btc_rate.upper_bound(d);
+		if (it != btc_rate.end())
+			std::cout << "key: " << it->first << ", val: " << (it->second) * v << std::endl;
+		else
+		{
+			// gives the next/greater date
+			it = btc_rate.lower_bound(d);
+			// gives the next/greater date
+			//it = btc_rate.upper_bound(d);
+			// decrement to the prev/lesser date
+			it--;
+			if (it != btc_rate.end())
+				if (!d.empty())
+					std::cout << "key: " << d << ", val: " << (it->second) * v << std::endl;
+		}
 	}
 }
 
@@ -277,9 +309,9 @@ int	main(int argc, char **argv)
 	//std::map<time_t, float>	btc_rate;
 	std::map<std::string, float>	btc_rate;
 	parse_database(btc_rate);
-	//print hash map in accordance with c98
-	for (std::map<std::string, float>::iterator i = btc_rate.begin(); i != btc_rate.end(); i++)
-		std::cout << i->first << " => " << i->second << std::endl;
+	// print hash map in accordance with c98
+	//for (std::map<std::string, float>::iterator i = btc_rate.begin(); i != btc_rate.end(); i++)
+	//	std::cout << i->first << " => " << i->second << std::endl;
 
 	parse_input(argv[1], btc_rate);
 

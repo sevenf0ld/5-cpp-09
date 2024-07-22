@@ -6,24 +6,61 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:45:38 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/22 07:30:57 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/22 12:23:31 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zero_zero.hh"
 
-// Boost's trim is not allowed
-// c++ regex library is not allowed
-std::string	trim_str(std::string &str)
+int	err_free_arg(char **argv, int argc)
 {
-	std::string	ret;
+	if (argc != 2)
+		return (FALSE);
 
-	std::size_t	start = str.find_first_not_of(" ");
-	std::size_t	end = str.find_last_not_of(" ");
-	if (start == std::string::npos || end == std::string::npos)
-		return (ret);
-	ret = str.substr(start, end - start + 1);
-	return (ret);
+	std::string	database = argv[1];
+
+	std::size_t found = database.find(".txt");
+	if (found == std::string::npos)
+		return (FALSE);
+	std::string ext = database.substr(found);
+	/*
+	try
+	{
+		size_t	database_size = database.size();
+		ext = database.substr(database_size - 4);
+	}
+	catch (std::out_of_range &e)
+		return (FALSE);
+	*/
+	// c++20 allows ends_with
+	if (ext.compare(".txt") != 0)
+		return (FALSE);
+
+	return (TRUE);
+}
+
+
+int	is_leap_year(int yr)
+{
+	if (yr % 400 == 0)
+		return (TRUE);
+	else if (yr % 100 == 0)
+		return (FALSE);
+	else if (yr % 4 == 0)
+		return (TRUE);
+	return (FALSE);
+}
+
+int	err_free_date(int yr, int mth, int dt)
+{
+	if (is_leap_year(yr) == FALSE)
+		if (mth == 2 && dt > 28)
+			return (FORMAT_ERR("Only 28 days in Feb for non-leap years."), FALSE);
+
+	if ((mth == 4 || mth == 6 || mth == 9 || mth == 11) && dt > 30)
+		return (FORMAT_ERR("Only 30 days in Apr, Jun, Sept and Nov."), FALSE);
+
+	return (TRUE);
 }
 
 int	validate_ymd(std::string token, char flag)
@@ -56,28 +93,6 @@ int	validate_ymd(std::string token, char flag)
 	return (TRUE);
 }
 
-int	is_leap_year(int yr)
-{
-	if (yr % 400 == 0)
-		return (TRUE);
-	else if (yr % 100 == 0)
-		return (FALSE);
-	else if (yr % 4 == 0)
-		return (TRUE);
-	return (FALSE);
-}
-
-int	err_free_date(int yr, int mth, int dt)
-{
-	if (is_leap_year(yr) == FALSE)
-		if (mth == 2 && dt > 28)
-			return (FORMAT_ERR("Only 28 days in Feb for non-leap years."), FALSE);
-
-	if ((mth == 4 || mth == 6 || mth == 9 || mth == 11) && dt > 30)
-		return (FORMAT_ERR("Only 30 days in Apr, Jun, Sept and Nov."), FALSE);
-
-	return (TRUE);
-}
 
 int	validate_date(std::string date, std::map<std::string, float> &btc_rate)
 {
@@ -124,37 +139,24 @@ int	validate_value(std::string value, std::map<std::string, float> &btc_rate, st
 	return (TRUE);
 }
 
-int	err_free_arg(char **argv, int argc)
+// Boost's trim is not allowed
+// c++ regex library is not allowed
+std::string	trim_str(std::string &str)
 {
-	if (argc != 2)
-		return (FALSE);
+	std::string	ret;
 
-	std::string	database = argv[1];
-
-	std::size_t found = database.find(".txt");
-	if (found == std::string::npos)
-		return (FALSE);
-	std::string ext = database.substr(found);
-	/*
-	try
-	{
-		size_t	database_size = database.size();
-		ext = database.substr(database_size - 4);
-	}
-	catch (std::out_of_range &e)
-		return (FALSE);
-	*/
-	// c++20 allows ends_with
-	if (ext.compare(".txt") != 0)
-		return (FALSE);
-
-	return (TRUE);
+	std::size_t	start = str.find_first_not_of(" ");
+	std::size_t	end = str.find_last_not_of(" ");
+	if (start == std::string::npos || end == std::string::npos)
+		return (ret);
+	ret = str.substr(start, end - start + 1);
+	return (ret);
 }
 
 int	err_free_line(char *database, std::map<std::string, float> &btc_rate)
 {
-	std::ifstream	db_file(database);
-	if (!db_file)
+	std::ifstream	input_file(database);
+	if (!input_file)
 	{
 		FORMAT_ERR("Failed to open " + std::string(database));
 		return (FALSE);
@@ -165,8 +167,8 @@ int	err_free_line(char *database, std::map<std::string, float> &btc_rate)
 	int	num_header_d = 0;
 	int	num_header_v = 0;
 
-	std::getline(db_file, line);
-	while (db_file.good())
+	std::getline(input_file, line);
+	while (input_file.good())
 	{
 		found = line.find("|");
 		std::size_t	r_found = line.rfind("|");
@@ -209,10 +211,41 @@ int	err_free_line(char *database, std::map<std::string, float> &btc_rate)
 		if (num_pipe != 2)
 			return (FORMAT_ERR("\'" + line + "\'" + " not in line with the format `date | value`: < 2 tokens or all spaces for either"), FALSE);
 
-		std::getline(db_file, line);
+		std::getline(input_file, line);
 	}
 
 	return (TRUE);
+}
+
+void	parse_database(std::map<std::string, float> &btc_rate)
+{
+	std::ifstream	csv_file("data.csv");
+	if (!csv_file)
+	{
+		FORMAT_ERR("Failed to open data.csv");
+		return ;
+	}
+
+	std::string	line;
+	std::size_t	found;
+
+	std::getline(csv_file, line);
+	while (csv_file.good())
+	{
+		if (line.compare("date,exchange_rate") == 0)
+		{
+			std::getline(csv_file, line);
+			continue ;
+		}
+		found = line.find(",");
+		if (found != std::string::npos)
+		{
+			std::string	date = line.substr(0, found);
+			std::string	rate = line.substr(found + 1);
+			btc_rate[date] = std::strtof(rate.c_str(), NULL);
+		}
+		std::getline(csv_file, line);
+	}
 }
 
 // output the value of a certain amount of btc on a given date
@@ -226,20 +259,17 @@ int	err_free_line(char *database, std::map<std::string, float> &btc_rate)
 // use at least one std container
 	// said container must not be reused in later exercises in this module
 // handle errors with appropriate msgs
-
 int	main(int argc, char **argv)
 {
 	//std::map<time_t, float>	btc_rate;
 	std::map<std::string, float>	btc_rate;
-
-	if (err_free_arg(argv, argc) == FALSE)
-		return (FORMAT_ERR("Usage: ./btc [filename].txt"), 1);
-	if (err_free_line(argv[1], btc_rate) == FALSE)
-		return (1);
-
+	parse_database(btc_rate);
 	//print hash map in accordance with c98
 	for (std::map<std::string, float>::iterator i = btc_rate.begin(); i != btc_rate.end(); i++)
 		std::cout << i->first << " => " << i->second << std::endl;
+
+	if (err_free_arg(argv, argc) == FALSE)
+		return (FORMAT_ERR("Usage: ./btc [filename].txt"), 1);
 
 	return (0);
 }

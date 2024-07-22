@@ -6,13 +6,13 @@
 #    By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/16 13:37:33 by maiman-m          #+#    #+#              #
-#    Updated: 2024/07/21 17:13:22 by maiman-m         ###   ########.fr        #
+#    Updated: 2024/07/22 12:19:34 by maiman-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = btc
 
-ARG="input_date_4.txt"
+ARG="input.txt"
 
 RESET = reset
 

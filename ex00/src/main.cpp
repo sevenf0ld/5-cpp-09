@@ -6,11 +6,22 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:45:38 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/22 16:02:25 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:01:14 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zero_zero.hh"
+
+std::ostream &operator<<(std::ostream &out_stream, const BitcoinExchange &rhs)
+{
+	std::map<std::string, float> dict;
+
+	dict = rhs.get_btc_rate();
+
+	for (std::map<std::string, float>::iterator ite = dict.begin(); ite != dict.end(); ite++)
+		out_stream << ite->first << ": " << ite->second << std::endl;
+	return (out_stream);
+}
 
 int	err_free_arg(char **argv, int argc)
 {
@@ -37,37 +48,6 @@ int	err_free_arg(char **argv, int argc)
 		return (FALSE);
 
 	return (TRUE);
-}
-
-void	parse_database(std::map<std::string, float> &btc_rate)
-{
-	std::ifstream	csv_file("data.csv");
-	if (!csv_file)
-	{
-		FORMAT_ERR("Failed to open data.csv");
-		return ;
-	}
-
-	std::string	line;
-	std::size_t	found;
-
-	std::getline(csv_file, line);
-	while (csv_file.good())
-	{
-		if (line.compare("date,exchange_rate") == 0)
-		{
-			std::getline(csv_file, line);
-			continue ;
-		}
-		found = line.find(",");
-		if (found != std::string::npos)
-		{
-			std::string	date = line.substr(0, found);
-			std::string	rate = line.substr(found + 1);
-			btc_rate[date] = std::strtof(rate.c_str(), NULL);
-		}
-		std::getline(csv_file, line);
-	}
 }
 
 int	is_leap_year(int yr)
@@ -184,112 +164,6 @@ std::string	trim_str(std::string &str)
 	return (ret);
 }
 
-void	parse_input(char *database, std::map<std::string, float> btc_rate)
-{
-	std::ifstream	input_file(database);
-	if (!input_file)
-	{
-		FORMAT_ERR("Failed to open " + std::string(database));
-		return ;
-	}
-
-	std::string	line;
-	std::size_t	found;
-	int	num_header_d = 0;
-	int	num_header_v = 0;
-
-	std::getline(input_file, line);
-	while (input_file.good())
-	{
-		found = line.find("|");
-		std::size_t	r_found = line.rfind("|");
-		if (found == std::string::npos || r_found == std::string::npos)
-		{
-			FORMAT_ERR("\'" + line + "\'" + " not in line with the format `date | value`: no delim");
-			std::getline(input_file, line);
-			continue ;
-		}
-		if (found != r_found)
-		{
-			FORMAT_ERR("\'" + line + "\'" + "not in line with the format `date | value`: multi delims");
-			std::getline(input_file, line);
-			continue ;
-		}
-
-		std::stringstream	line_stream(line);
-		std::string	token;
-		int	num_pipe = 0;
-		std::string	d;
-		double	v;
-		while (std::getline(line_stream, token, '|'))
-		{
-			if (token.find_first_not_of(" ") == std::string::npos)
-			{
-				FORMAT_ERR("\'" + line + "\'" + " not in line with the format `date | value`: < 2 tokens or all spaces for either");
-				break ;
-			}
-
-			std::string	trimmed_token = trim_str(token);
-			if (!trimmed_token.compare("date"))
-				num_header_d += 1;
-			else if (num_pipe == 0)
-			{
-				if (validate_date(trimmed_token, d) == FALSE)
-					break ;
-			}
-			if (!trimmed_token.compare("value"))
-				num_header_v += 1;
-			else if (num_pipe == 1)
-			{
-				if (validate_value(trimmed_token, &v) == FALSE)
-					break ;
-			}
-
-			num_pipe++;
-		}
-
-
-		if (num_pipe == 0 || num_pipe == 1)
-		{
-			std::getline(input_file, line);
-			continue ;
-		}
-
-		if (num_header_d != 1 || num_header_v != 1)
-		{
-			FORMAT_ERR("not in line with the file format: multiple header dates or values");
-			return ;
-		}
-		if (num_pipe != 2)
-		{
-			FORMAT_ERR("\'" + line + "\'" + " not in line with the format `date | value`: < 2 tokens or all spaces for either");
-			return ;
-		}
-
-		std::getline(input_file, line);
-
-		std::map<std::string, float>::iterator it = btc_rate.find(d);
-		// gives the prev/lesser date but not used bc non-existing dates are not detected this way
-		//std::map<std::string, float>::iterator it = btc_rate.lower_bound(d);
-		// gives the next/greater date
-		//std::map<std::string, float>::iterator it = btc_rate.upper_bound(d);
-		if (it != btc_rate.end())
-			std::cout << "key: " << it->first << ", val: " << (it->second) * v << std::endl;
-		else
-		{
-			// gives the next/greater date
-			it = btc_rate.lower_bound(d);
-			// gives the next/greater date
-			//it = btc_rate.upper_bound(d);
-			// decrement to the prev/lesser date
-			it--;
-			if (it != btc_rate.end())
-				if (!d.empty())
-					std::cout << "key: " << d << ", val: " << (it->second) * v << std::endl;
-		}
-	}
-}
-
 // output the value of a certain amount of btc on a given date
 	// use the previous/lesser date if given a nonexistent date
 // database is in csv format (provided)
@@ -306,14 +180,15 @@ int	main(int argc, char **argv)
 	if (err_free_arg(argv, argc) == FALSE)
 		return (FORMAT_ERR("Usage: ./btc [filename].txt"), 1);
 
-	//std::map<time_t, float>	btc_rate;
-	std::map<std::string, float>	btc_rate;
-	parse_database(btc_rate);
-	// print hash map in accordance with c98
-	//for (std::map<std::string, float>::iterator i = btc_rate.begin(); i != btc_rate.end(); i++)
-	//	std::cout << i->first << " => " << i->second << std::endl;
+	//std::map<std::string, float>	btc_rate;
+	//parse_database(btc_rate);
+	//parse_input(argv[1], btc_rate);
 
-	parse_input(argv[1], btc_rate);
+	BitcoinExchange::parse_database();
+	BitcoinExchange::parse_input(argv[1]);
+
+	BitcoinExchange	be;
+	//std::cout << be << std::endl;
 
 	return (0);
 }

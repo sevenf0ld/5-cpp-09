@@ -6,7 +6,7 @@
 #    By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/16 13:37:33 by maiman-m          #+#    #+#              #
-#    Updated: 2024/07/22 12:19:34 by maiman-m         ###   ########.fr        #
+#    Updated: 2024/07/23 13:30:38 by maiman-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CXXFLAGS = -Wall -Wextra -Werror -Wshadow -std=c++98 -g3 -pedantic
 
 CPPFLAGS = -I include
 
-SOURCE = main.cpp
+SOURCE = main.cpp BitcoinExchange.cpp
 
 SRC_DIR = src
 

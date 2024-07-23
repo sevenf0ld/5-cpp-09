@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:46:57 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/23 14:01:00 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:24:59 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@
 #include <cstdlib>
 #include <sstream>
 #include <map>
+#include <ctime>
 
 #include "BitcoinExchange.hpp"
 
 std::ostream &operator<<(std::ostream &out_stream, const BitcoinExchange &rhs);
-int	validate_date(std::string date, std::string &d);
-int	validate_value(std::string value, double *v);
+int	err_free_date(tm conv);
 std::string	trim_str(std::string &str);
 
 #endif

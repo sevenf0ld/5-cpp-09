@@ -15,12 +15,12 @@
 /* ============================================================================== */
 /* 								error handling									  */
 /* ============================================================================== */
-int	err_free_arg(char **argv, int argc)
+int err_free_arg(char **argv, int argc)
 {
 	if (argc != 2)
 		return (FALSE);
 
-	std::string	database = argv[1];
+	std::string database = argv[1];
 	std::size_t found = database.find(".txt");
 	if (found == std::string::npos)
 		return (FALSE);
@@ -32,7 +32,7 @@ int	err_free_arg(char **argv, int argc)
 	return (TRUE);
 }
 
-static int	is_leap_year(int yr)
+static int is_leap_year(int yr)
 {
 	if (yr % 400 == 0)
 		return (TRUE);
@@ -44,7 +44,7 @@ static int	is_leap_year(int yr)
 	return (FALSE);
 }
 
-int	err_free_date(tm conv)
+int err_free_date(tm conv)
 {
 	if (is_leap_year(conv.tm_year + 1900) == FALSE)
 		if (conv.tm_mon + 1 == 2 && conv.tm_mday > 28)
@@ -56,15 +56,15 @@ int	err_free_date(tm conv)
 	return (TRUE);
 }
 
-std::string	trim_str(std::string &str)
+std::string trim_str(std::string &str)
 {
 
-	std::size_t	start = str.find_first_not_of(" ");
-	std::size_t	end = str.find_last_not_of(" ");
+	std::size_t start = str.find_first_not_of(" ");
+	std::size_t end = str.find_last_not_of(" ");
 	if (start == std::string::npos || end == std::string::npos)
 		return ("");
 
-	std::string	ret = str.substr(start, end - start + 1);
+	std::string ret = str.substr(start, end - start + 1);
 	return (ret);
 }
 
@@ -73,23 +73,23 @@ std::string	trim_str(std::string &str)
 /* ============================================================================== */
 std::ostream &operator<<(std::ostream &out_stream, const std::map<std::string, float>::iterator &ite)
 {
-	float	value = BitcoinExchange::get_value();
+	float value = BitcoinExchange::get_value();
 	out_stream << ite->first << " => " << value << " = " << ite->second * value << std::endl;
 	return (out_stream);
 }
 
 // output the value of a certain amount of btc on a given date
-	// use the previous/lesser date if given a nonexistent date
+// use the previous/lesser date if given a nonexistent date
 // database is in csv format (provided)
 // program param: a database which stores the different prices & dates to be evaluated
-	// a file, format unspecified, subject example is .txt)
-	// line		: "date | value"
-	// date		: "Y-M-D"
-	// valid	: float/+ve int & (0, 100)
+// a file, format unspecified, subject example is .txt)
+// line		: "date | value"
+// date		: "Y-M-D"
+// valid	: float/+ve int & (0, 100)
 // use at least one std container
-	// said container must not be reused in later exercises in this module
+// said container must not be reused in later exercises in this module
 // handle errors with appropriate msgs
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	if (err_free_arg(argv, argc) == FALSE)
 		return (FORMAT_ERR("Usage: ./btc [filename].txt"), 1);

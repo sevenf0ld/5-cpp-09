@@ -41,10 +41,10 @@
 
 #include "BitcoinExchange.hpp"
 
-int	err_free_argc(int argc, char **argv);
-int	err_free_date(tm conv);
+int err_free_argc(int argc, char **argv);
+int err_free_date(tm conv);
 
 std::ostream &operator<<(std::ostream &out_stream, const std::map<std::string, float>::iterator &ite);
-std::string	trim_str(std::string &str);
+std::string trim_str(std::string &str);
 
 #endif

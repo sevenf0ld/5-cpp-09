@@ -6,33 +6,25 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:45:38 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/23 16:31:06 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:18:06 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zero_zero.hh"
 
-std::ostream &operator<<(std::ostream &out_stream, const BitcoinExchange &rhs)
-{
-	std::map<std::string, float> dict;
-
-	dict = rhs.get_btc_rate();
-
-	for (std::map<std::string, float>::iterator ite = dict.begin(); ite != dict.end(); ite++)
-		out_stream << ite->first << ": " << ite->second << std::endl;
-	return (out_stream);
-}
-
-static int	err_free_arg(char **argv, int argc)
+/* ============================================================================== */
+/* 								error handling									  */
+/* ============================================================================== */
+int	err_free_arg(char **argv, int argc)
 {
 	if (argc != 2)
 		return (FALSE);
 
 	std::string	database = argv[1];
-
 	std::size_t found = database.find(".txt");
 	if (found == std::string::npos)
 		return (FALSE);
+
 	std::string ext = database.substr(found);
 	if (ext.compare(".txt") != 0)
 		return (FALSE);
@@ -48,6 +40,7 @@ static int	is_leap_year(int yr)
 		return (FALSE);
 	else if (yr % 4 == 0)
 		return (TRUE);
+
 	return (FALSE);
 }
 
@@ -63,26 +56,26 @@ int	err_free_date(tm conv)
 	return (TRUE);
 }
 
-int	validate_value(std::string value, double *v)
-{
-	float	val = std::strtof(value.c_str(), NULL);
-	if (!(val > 0.0f && val < 100.0f))
-		return (FORMAT_ERR("\'" + value + "\'" + " not in line with the value format `(0, 100)`"), FALSE);
-
-	*v = val;
-	return (TRUE);
-}
-
 std::string	trim_str(std::string &str)
 {
-	std::string	ret;
 
 	std::size_t	start = str.find_first_not_of(" ");
 	std::size_t	end = str.find_last_not_of(" ");
 	if (start == std::string::npos || end == std::string::npos)
-		return (ret);
-	ret = str.substr(start, end - start + 1);
+		return ("");
+
+	std::string	ret = str.substr(start, end - start + 1);
 	return (ret);
+}
+
+/* ============================================================================== */
+/* 								display											  */
+/* ============================================================================== */
+std::ostream &operator<<(std::ostream &out_stream, const std::map<std::string, float>::iterator &ite)
+{
+	float	value = BitcoinExchange::get_value();
+	out_stream << ite->first << " => " << value << " = " << ite->second * value << std::endl;
+	return (out_stream);
 }
 
 // output the value of a certain amount of btc on a given date

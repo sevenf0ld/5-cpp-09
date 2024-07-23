@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:46:57 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/23 17:24:59 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:52:16 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@
 
 #include "BitcoinExchange.hpp"
 
-std::ostream &operator<<(std::ostream &out_stream, const BitcoinExchange &rhs);
+int	err_free_argc(int argc, char **argv);
 int	err_free_date(tm conv);
+
+std::ostream &operator<<(std::ostream &out_stream, const std::map<std::string, float>::iterator &ite);
 std::string	trim_str(std::string &str);
 
 #endif

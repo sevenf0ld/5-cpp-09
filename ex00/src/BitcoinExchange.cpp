@@ -6,17 +6,20 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:45:55 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/23 17:21:18 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:17:14 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zero_zero.hh"
 
 std::map<std::string, float>	BitcoinExchange::btc_rate_;
-const char	*BitcoinExchange::csv_ = "data.csv";
-std::string	BitcoinExchange::date_;
-float	BitcoinExchange::value_ = 0.0f;
+const char						*BitcoinExchange::csv_ = "data.csv";
+std::string						BitcoinExchange::date_;
+float							BitcoinExchange::value_ = 0.0f;
 
+/* ============================================================================== */
+/* 								rule of three									  */
+/* ============================================================================== */
 BitcoinExchange::BitcoinExchange()
 {
 }
@@ -36,6 +39,9 @@ BitcoinExchange::~BitcoinExchange()
 {
 }
 
+/* ============================================================================== */
+/* 							static parse member functions						  */
+/* ============================================================================== */
 void	BitcoinExchange::parse_database(void)
 {
 	std::ifstream	csv_file(csv_);
@@ -47,7 +53,6 @@ void	BitcoinExchange::parse_database(void)
 
 	std::string	line;
 	std::size_t	found;
-
 	std::getline(csv_file, line);
 	while (csv_file.good())
 	{
@@ -80,7 +85,6 @@ void	BitcoinExchange::parse_input(char *database)
 	std::size_t	found;
 	int	num_header_d = 0;
 	int	num_header_v = 0;
-
 	std::getline(input_file, line);
 	while (input_file.good())
 	{
@@ -163,28 +167,25 @@ void	BitcoinExchange::parse_input(char *database)
 			return ;
 		}
 
-		std::getline(input_file, line);
-
 		std::map<std::string, float>::iterator ite = btc_rate_.find(BitcoinExchange::get_date());
 		if (ite != btc_rate_.end())
-			std::cout << "key: " << ite->first << ", val: " << (ite->second) * BitcoinExchange::get_value() << std::endl;
+			std::cout << ite;
 		else
 		{
 			ite = btc_rate_.lower_bound(BitcoinExchange::get_date());
 			ite--;
 			if (ite != btc_rate_.end())
 				if (!(BitcoinExchange::get_date().empty()))
-					std::cout << "key: " << ite->first << ", val: " << (ite->second) * BitcoinExchange::get_value() << std::endl;
-			BitcoinExchange::set_date("");
+					std::cout << ite;
 		}
+
+		std::getline(input_file, line);
 	}
 }
 
-std::map<std::string, float> BitcoinExchange::get_btc_rate(void) const
-{
-	return (btc_rate_);
-}
-
+/* ============================================================================== */
+/* 								static getters									  */
+/* ============================================================================== */
 std::string	BitcoinExchange::get_date(void)
 {
 	return (date_);
@@ -195,6 +196,9 @@ float	BitcoinExchange::get_value(void)
 	return (value_);
 }
 
+/* ============================================================================== */
+/* 								static setters									  */
+/* ============================================================================== */
 void	BitcoinExchange::set_date(std::string const date)
 {
 	date_ = date;
@@ -203,4 +207,12 @@ void	BitcoinExchange::set_date(std::string const date)
 void	BitcoinExchange::set_value(float value)
 {
 	value_ = value;
+}
+
+/* ============================================================================== */
+/* 									getters										  */
+/* ============================================================================== */
+std::map<std::string, float> BitcoinExchange::get_btc_rate(void) const
+{
+	return (btc_rate_);
 }

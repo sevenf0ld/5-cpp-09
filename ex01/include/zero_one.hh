@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 22:46:00 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/24 15:57:35 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:53:39 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@
 #include <cstdlib>
 
 #include "RPN.hpp"
+
+void	validate_notation(std::string expr);
 
 #endif

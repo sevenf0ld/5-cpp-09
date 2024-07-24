@@ -28,7 +28,6 @@ private:
 	~RPN();
 
 	static std::stack<int> notation_;
-
 };
 
 #endif

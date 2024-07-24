@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 22:47:09 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/24 19:05:41 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/24 19:29:46 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 void validate_notation(std::string expr)
 {
 	if (expr.find_first_not_of("0123456789+-/* ") != std::string::npos
-			|| expr.find_first_not_of(" ") == std::string::npos
 			|| expr.find_first_not_of("0123456789 ") == std::string::npos
 			|| expr.find_first_not_of("+-/* ") == std::string::npos)
 	{
@@ -68,9 +67,9 @@ void validate_notation(std::string expr)
 // queue fifo
 // program name	: RPN
 // program arg	: inverted polish maths expression
-	// digits		: < 10
-	// operations	: +, -, /, *
-	// note			: no parentheses and decimals
+// digits		: < 10
+// operations	: +, -, /, *
+// note			: no parentheses and decimals
 int main(int argc, char **argv)
 {
 	if (argc != 2)

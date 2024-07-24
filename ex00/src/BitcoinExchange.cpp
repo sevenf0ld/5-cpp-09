@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:45:55 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/23 19:17:14 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/07/24 20:22:33 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,12 +206,4 @@ void BitcoinExchange::set_date(std::string const date)
 void BitcoinExchange::set_value(float value)
 {
 	value_ = value;
-}
-
-/* ============================================================================== */
-/* 									getters										  */
-/* ============================================================================== */
-std::map<std::string, float> BitcoinExchange::get_btc_rate(void) const
-{
-	return (btc_rate_);
 }

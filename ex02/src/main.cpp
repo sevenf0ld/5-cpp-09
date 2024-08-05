@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:38:55 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/01 17:54:20 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:18:19 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,23 @@
 // 		- data management
 //
 // VAGUE: "The management of errors related to duplicates is left to your discretion."
+//
+// alt: vector, deque, list
+// 		- vector: can only add and remove to/from the back
+// 		- deque & list: can add and remove to/from the front and back
+
+// validate integer
+// validate positive
+// validate non-duplicate
+
+int main(int argc, char **argv)
+{
+	if (argc == 1)
+	{
+		FORMAT_ERR("Usage: ./PmergeMe x x x x x x");
+		FORMAT_ERR("Usage: ./PmergeMe \"x x x x x x\"");
+		return (FORMAT_ERR("Only non-duplicate positive integers as arguments are allowed."), 1);
+	}
+	for (int i = 1; argv[i] != NULL; i++)
+		PmergeMe::validate(argv[i]);
+}

@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:41:05 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/01 18:55:41 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/05 12:18:25 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 class PmergeMe
 {
 public:
+	static void validate(std::string arg);
 
 private:
 };

@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 22:46:00 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/24 19:29:18 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/05 18:42:29 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 #define FORMAT_ERR(str) std::cerr << AC_RED << str << AC_NORMAL << std::endl
 
 #include <iostream>
+#include <string>
 #include <stack>
 #include <sstream>
 #include <cstdlib>

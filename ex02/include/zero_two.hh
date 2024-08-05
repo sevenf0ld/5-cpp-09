@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:38:11 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/05 11:12:35 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/05 19:09:27 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,19 @@
 
 #define FORMAT_ERR(str) std::cerr << AC_RED << str << AC_NORMAL << std::endl
 
-#include <iostream>
-#include <sstream>
-#include <cstdlib>
-#include <climits>
+#define TRUE 1
+#define FALSE 0
 
+#include <iostream>
+#include <string>
+#include <sstream> //ostringstream, stringstream
+#include <cstdlib> // atoi, strtol
+#include <climits> // INT_MIN, INT_MAX
+#include <vector>
+#include <list>
+#include <algorithm> // sort, adjacent_find
+
+#include "validate_prog.hpp"
 #include "PmergeMe.hpp"
 
 #endif

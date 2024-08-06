@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:38:55 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/05 19:09:59 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:03:20 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,19 +100,24 @@ int main(int argc, char **argv)
 	if (!err_free_count(argc))
 		return (1);
 
-	std::vector<int> vec;
-	std::list<int> lst;
+	std::deque<int> unsorted;
 	for (int i = 1; argv[i] != NULL; i++)
 	{
 		if (!positive_int_seq(argv[i]))
 			return (1);
-		vec.push_back(atoi(argv[i]));
-		lst.push_back(atoi(argv[i]));
+		unsorted.push_back(atoi(argv[i]));
 	}
-
-	//if (!no_dup_seq(vec) || !no_dup_seq(lst))
-	if (!no_dup_seq(vec))
+	if (!no_dup_seq(unsorted))
 		return (1);
+	if (is_sorted_seq(unsorted))
+		return (1);
+
+	std::vector<int> vec(unsorted.begin(), unsorted.end());
+	std::list<int> lst(unsorted.begin(), unsorted.end());
+	std::copy(vec.begin(), vec.end(), std::ostream_iterator<int>(std::cout, " "));
+	std::cout << std::endl;
+	std::copy(lst.begin(), lst.end(), std::ostream_iterator<int>(std::cout, " "));
+	std::cout << std::endl;
 
 	return (0);
 }

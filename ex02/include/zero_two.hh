@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:38:11 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/05 19:09:27 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:56:23 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@
 
 #include <iostream>
 #include <string>
-#include <sstream> //ostringstream, stringstream
+#include <sstream> // ostringstream, stringstream
 #include <cstdlib> // atoi, strtol
 #include <climits> // INT_MIN, INT_MAX
 #include <vector>
 #include <list>
-#include <algorithm> // sort, adjacent_find
+#include <deque>
+#include <algorithm> // sort, adjacent_find, copy
+#include <iterator> // ostream_iterator
 
 #include "validate_prog.hpp"
 #include "PmergeMe.hpp"

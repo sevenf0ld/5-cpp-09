@@ -52,7 +52,7 @@ int is_odd(T const &container)
 }
 
 template <typename P, typename T>
-P create_pairs(T const &container)
+P group_pairs(T const &container)
 {
 	int_pair tmp_pair;
 	P ret_pair;

@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:39:08 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/10 00:59:02 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/10 01:48:43 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void PmergeMe::ford_johnson_sort(std::vector<int> &c)
 	else
 		staggler = -1;
 	(void) staggler;
-	std::vector <int_pair> vec_pair = create_pairs< std::vector <int_pair > >(c);
+	std::vector <int_pair> vec_pair = group_pairs< std::vector <int_pair > >(c);
 	print_pair(vec_pair);
 }
 
@@ -66,6 +66,6 @@ void PmergeMe::ford_johnson_sort(std::list<int> &c)
 	else
 		staggler = -1;
 	(void) staggler;
-	std::list <int_pair> lst_pair = create_pairs< std::list <int_pair> >(c);
+	std::list <int_pair> lst_pair = group_pairs< std::list <int_pair> >(c);
 	print_pair(lst_pair);
 }

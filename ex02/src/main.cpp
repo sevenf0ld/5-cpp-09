@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:38:55 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/07 12:24:23 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:04:22 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,10 @@ int main(int argc, char **argv)
 
 	std::vector<int> vec(unsorted.begin(), unsorted.end());
 	std::list<int> lst(unsorted.begin(), unsorted.end());
-	std::copy(vec.begin(), vec.end(), std::ostream_iterator<int>(std::cout, " "));
+
+	PmergeMe::ford_johnson_sort(vec);
 	std::cout << std::endl;
-	std::copy(lst.begin(), lst.end(), std::ostream_iterator<int>(std::cout, " "));
+	PmergeMe::ford_johnson_sort(lst);
 	std::cout << std::endl;
 
 	return (0);

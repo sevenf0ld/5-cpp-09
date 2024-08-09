@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:41:05 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/05 19:09:25 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/10 01:05:33 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,14 @@
 class PmergeMe
 {
 public:
+	static void ford_johnson_sort(std::vector<int> &c);
+	static void ford_johnson_sort(std::list<int> &c);
 
 private:
+	PmergeMe();
+	PmergeMe(const PmergeMe &rhs);
+	PmergeMe &operator=(const PmergeMe &rhs);
+	~PmergeMe();
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:38:11 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/06 13:56:23 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/10 01:04:57 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@
 
 #define TRUE 1
 #define FALSE 0
+
+#include <utility> // pair, make_pair
+
+//typedef std::pair<int, int> container_pair;
+typedef std::pair<int, int> int_pair;
 
 #include <iostream>
 #include <string>

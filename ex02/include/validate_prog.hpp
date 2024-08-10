@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:14:43 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/10 01:48:23 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:51:57 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,17 @@ int is_odd(T const &container);
 template <typename P, typename T>
 P group_pairs(T const &container);
 
-template <typename T>
-void print_pair(T const &container);
+template <typename P>
+void sort_descending(P &container_pairs);
+
+template <typename P>
+void merge_sort(P &container_pairs);
+
+template <typename P>
+void merge(P const &left, P const &right, P &container_pairs);
+
+template <typename P>
+void print_pair(P const &container);
 
 #include "validate_prog.tpp"
 

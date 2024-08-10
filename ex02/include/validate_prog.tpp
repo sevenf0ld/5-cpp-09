@@ -69,6 +69,74 @@ P group_pairs(T const &container)
 	return (ret_pair);
 }
 
+template <typename P>
+void sort_descending(P &container_pairs)
+{
+	for (typename P::iterator it = container_pairs.begin(); it != container_pairs.end(); it++)
+	{
+		if (it->second > it->first)
+			std::swap(it->second, it->first);
+	}
+}
+
+// merge sort (refer to top-down implementation using lists)
+// (source: https://en.wikipedia.org/wiki/Merge_sort)
+template <typename P>
+void merge_sort(P &container_pairs)
+{
+	size_t n = container_pairs.size();
+	if (n <= 1)
+		return ;
+
+	std::cout << AC_CYAN << " == " << container_pairs.size() << " == " << AC_NORMAL << std::endl;
+
+	//typename P::const_iterator it = container_pairs.begin();
+	typename P::iterator it = container_pairs.begin();
+	size_t distance_to_mid = n / 2;
+	std::advance(it, distance_to_mid);
+
+	P half_left(container_pairs.begin(), it);
+	merge_sort(half_left);
+
+	P half_right(it, container_pairs.end());
+	merge_sort(half_right);
+
+	merge(half_left, half_right, container_pairs);
+}
+
+// can't check if halves are empty because pop_front (member function of list but not vector) is required
+// front member functions are present in both
+// would require using advance to shift the iterator by one (increment / to the right)
+// must then access only the first elem on each iteration of the loop
+// requires an iterator but fails to check if halves are empty regardless because there is no way to pop_front a vector unless the half is reassigned each time which seems unnecessary and unintelligent
+template <typename P>
+void merge(P const &left, P const &right, P &container_pairs)
+{
+	container_pairs.clear();
+
+	typename P::const_iterator it_l = left.begin();
+	typename P::const_iterator it_r = right.begin();
+
+	while (it_l != left.end() && it_r != right.end())
+	{
+		if (it_l->first < it_r->first)
+		{
+			container_pairs.push_back(*it_l);
+			it_l++;
+		}
+		else
+		{
+			container_pairs.push_back(*it_r);
+			it_r++;
+		}
+	}
+
+	for (; it_l != left.end(); it_l++)
+		container_pairs.push_back(*it_l);
+	for (; it_r != right.end(); it_r++)
+		container_pairs.push_back(*it_r);
+}
+
 /* ============================================================================== */
 /* 									temporary helper							  */
 /* ============================================================================== */
@@ -87,10 +155,10 @@ P group_pairs(T const &container)
 		std::cout << it->first << ", " << it->second << std::endl;
 	}
 	*/
-template <typename T>
-void print_pair(T const &container)
+template <typename P>
+void print_pair(P const &container)
 {
-	for (typename T::const_iterator it = container.begin(); it != container.end(); it++)
+	for (typename P::const_iterator it = container.begin(); it != container.end(); it++)
 	{
 		std::cout << "[ " << it->first << ", " << it->second << " ]" << std::endl;
 	}

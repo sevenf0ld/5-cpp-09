@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:39:08 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/10 01:48:43 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:40:37 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ PmergeMe::~PmergeMe()
 /* ============================================================================== */
 void PmergeMe::ford_johnson_sort(std::vector<int> &c)
 {
-	std::copy(c.begin(), c.end(), std::ostream_iterator<int>(std::cout, " "));
+	//std::copy(c.begin(), c.end(), std::ostream_iterator<int>(std::cout, " "));
 	std::cout << std::endl;
 
 	int staggler = c.back();
@@ -48,7 +48,11 @@ void PmergeMe::ford_johnson_sort(std::vector<int> &c)
 	else
 		staggler = -1;
 	(void) staggler;
+
 	std::vector <int_pair> vec_pair = group_pairs< std::vector <int_pair > >(c);
+	sort_descending(vec_pair);
+	print_pair(vec_pair);
+	merge_sort(vec_pair);
 	print_pair(vec_pair);
 }
 
@@ -57,7 +61,7 @@ void PmergeMe::ford_johnson_sort(std::vector<int> &c)
 /* ============================================================================== */
 void PmergeMe::ford_johnson_sort(std::list<int> &c)
 {
-	std::copy(c.begin(), c.end(), std::ostream_iterator<int>(std::cout, " "));
+	//std::copy(c.begin(), c.end(), std::ostream_iterator<int>(std::cout, " "));
 	std::cout << std::endl;
 
 	int staggler = c.back();
@@ -66,6 +70,10 @@ void PmergeMe::ford_johnson_sort(std::list<int> &c)
 	else
 		staggler = -1;
 	(void) staggler;
+
 	std::list <int_pair> lst_pair = group_pairs< std::list <int_pair> >(c);
+	sort_descending(lst_pair);
+	print_pair(lst_pair);
+	merge_sort(lst_pair);
 	print_pair(lst_pair);
 }

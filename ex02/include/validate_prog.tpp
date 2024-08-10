@@ -152,6 +152,20 @@ T create_sorted_seq(P const &container_pairs)
 	return (sorted_seq);
 }
 
+template <typename T, typename P>
+T create_pend_seq(P const &container_pairs)
+{
+	T pending;
+
+	typename P::const_iterator it = container_pairs.begin();
+	std::advance(it, 1);
+
+	for (; it != container_pairs.end(); it++)
+		pending.push_back(it->second);
+
+	return (pending);
+}
+
 /* ============================================================================== */
 /* 									temporary helper							  */
 /* ============================================================================== */

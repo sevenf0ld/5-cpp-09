@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:39:08 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/10 15:14:00 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:26:39 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ void PmergeMe::ford_johnson_sort(std::vector<int> &c)
 	std::copy(sorted_vec.begin(), sorted_vec.end(), std::ostream_iterator<int>(std::cout, " "));
 	std::cout << std::endl;
 
+	std::vector<int> pending = create_pend_seq< std::vector <int> >(vec_pair);
+	std::copy(pending.begin(), pending.end(), std::ostream_iterator<int>(std::cout, " "));
+	std::cout << std::endl;
+
 }
 
 /* ============================================================================== */
@@ -80,5 +84,7 @@ void PmergeMe::ford_johnson_sort(std::list<int> &c)
 	std::copy(sorted_lst.begin(), sorted_lst.end(), std::ostream_iterator<int>(std::cout, " "));
 	std::cout << std::endl;
 
-
+	std::list<int> pending = create_pend_seq< std::list <int> >(lst_pair);
+	std::copy(pending.begin(), pending.end(), std::ostream_iterator<int>(std::cout, " "));
+	std::cout << std::endl;
 }

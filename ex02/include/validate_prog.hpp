@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:14:43 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/10 19:20:07 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/10 23:05:26 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ template <typename T, typename P>
 T create_pend_seq(P const &container_pairs);
 
 template <typename T>
-void insert_pend_into_sorted(T &sorted, T const &pend);
+void insert_pend_into_sorted(T &sorted, T &pend);
 
 template <typename T>
 typename T::iterator binary_search(T &container, size_t n, int target);

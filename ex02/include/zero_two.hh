@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:38:11 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/10 13:04:56 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:54:04 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef std::pair<int, int> int_pair;
 #include <list>
 #include <deque>
 #include <algorithm> // sort, adjacent_find, copy, swap
-#include <iterator> // ostream_iterator, advance
+#include <iterator> // ostream_iterator, advance, next
 
 #include "validate_prog.hpp"
 #include "PmergeMe.hpp"

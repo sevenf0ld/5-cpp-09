@@ -153,12 +153,13 @@ T create_sorted_seq(P const &container_pairs)
 }
 
 template <typename T, typename P>
-T create_pend_seq(P const &container_pairs)
+//T create_pend_seq(P const &container_pairs)
+T create_pend_seq(P container_pairs)
 {
 	T pending;
 
-	typename P::const_iterator it = container_pairs.begin();
-	std::advance(it, 1);
+	//typename P::const_iterator it = container_pairs.begin();
+	typename P::iterator it = std::next(container_pairs.begin());
 
 	for (; it != container_pairs.end(); it++)
 		pending.push_back(it->second);

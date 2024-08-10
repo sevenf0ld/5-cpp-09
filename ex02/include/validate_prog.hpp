@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 18:14:43 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/10 15:27:56 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:55:54 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ template <typename T, typename P>
 T create_sorted_seq(P const &container_pairs);
 
 template <typename T, typename P>
-T create_pend_seq(P const &container_pairs);
+//T create_pend_seq(P const &container_pairs);
+T create_pend_seq(P container_pairs);
 
 template <typename P>
 void print_pair(P const &container);

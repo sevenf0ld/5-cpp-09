@@ -6,7 +6,7 @@
 #    By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 17:27:30 by maiman-m          #+#    #+#              #
-#    Updated: 2024/08/10 15:54:14 by maiman-m         ###   ########.fr        #
+#    Updated: 2024/08/10 16:02:34 by maiman-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SILENT_FCLEAN = make -s fclean
 
 CXX = c++
 
-#CXXFLAGS = -Wall -Wextra -Werror -Wshadow -std=c++98 -g3 -pedantic
+CXXFLAGS = -Wall -Wextra -Werror -Wshadow -std=c++98 -g3 -pedantic
 
 CPPFLAGS = -I include
 

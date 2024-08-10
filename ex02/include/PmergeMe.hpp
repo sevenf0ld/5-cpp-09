@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:41:05 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/10 01:05:33 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/10 18:45:39 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ class PmergeMe
 public:
 	static void ford_johnson_sort(std::vector<int> &c);
 	static void ford_johnson_sort(std::list<int> &c);
+	static int generate_jacobsthal_seq(size_t n);
 
 private:
 	PmergeMe();

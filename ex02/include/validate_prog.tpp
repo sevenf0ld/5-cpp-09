@@ -153,18 +153,67 @@ T create_sorted_seq(P const &container_pairs)
 }
 
 template <typename T, typename P>
-//T create_pend_seq(P const &container_pairs)
-T create_pend_seq(P container_pairs)
+//T create_pend_seq(P container_pairs)
+T create_pend_seq(P const &container_pairs)
 {
 	T pending;
 
-	//typename P::const_iterator it = container_pairs.begin();
-	typename P::iterator it = std::next(container_pairs.begin());
+	//typename P::iterator it = std::next(container_pairs.begin());
+	typename P::const_iterator it = container_pairs.begin();
+	std::advance(it, 1);
 
 	for (; it != container_pairs.end(); it++)
 		pending.push_back(it->second);
 
 	return (pending);
+}
+
+template <typename T>
+void insert_pend_into_sorted(T &sorted, T const &pend)
+{
+	// get pend using jacobsthal using pend size
+		// iterate until jacobsthal-th index in pend
+	// insert into sorted using binary search
+
+	size_t n = pend.size();
+	int index = PmergeMe::generate_jacobsthal_seq(n);
+	std::cout << AC_GREEN << "index: " << index
+			  << std::endl << "size (n): " << n
+			  << AC_NORMAL << std::endl;
+	if (index >= static_cast<int>(n))
+		return ;
+
+	typename T::iterator to_insert = sorted.begin();
+	std::advance(to_insert, index);
+	typename T::iterator pos = binary_search(sorted, sorted.size(), *to_insert);
+
+	std::cout << AC_YELLOW << "to_insert: " << *to_insert
+			  << std::endl << "pos : " << *pos
+			  << AC_NORMAL << std::endl;
+
+	sorted.insert(pos, *to_insert);
+}
+
+template <typename T>
+typename T::iterator binary_search(T &container, size_t n, int target) 
+{
+	typename T::iterator it = container.begin();
+	typename T::iterator ite = container.end();
+	while (it != ite)
+	{
+		typename T::iterator elem = container.begin();
+		typename T::iterator itm = container.begin();
+		std::advance(itm, n / 2);
+		for (; elem != itm; elem++)
+			;
+		if (*elem < target)
+			it = ++itm;
+		else if (*elem > target)
+			ite = --itm;
+		else
+			return (itm);
+	}
+	return (container.end());
 }
 
 /* ============================================================================== */

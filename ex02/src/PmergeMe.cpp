@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:39:08 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/10 14:40:37 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:14:00 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ PmergeMe::~PmergeMe()
 /* ============================================================================== */
 void PmergeMe::ford_johnson_sort(std::vector<int> &c)
 {
-	//std::copy(c.begin(), c.end(), std::ostream_iterator<int>(std::cout, " "));
-	std::cout << std::endl;
-
 	int staggler = c.back();
 	if (is_odd(c))
 		c.pop_back();
@@ -50,10 +47,15 @@ void PmergeMe::ford_johnson_sort(std::vector<int> &c)
 	(void) staggler;
 
 	std::vector <int_pair> vec_pair = group_pairs< std::vector <int_pair > >(c);
+
 	sort_descending(vec_pair);
-	print_pair(vec_pair);
 	merge_sort(vec_pair);
 	print_pair(vec_pair);
+
+	std::vector<int> sorted_vec = create_sorted_seq< std::vector <int> >(vec_pair);
+	std::copy(sorted_vec.begin(), sorted_vec.end(), std::ostream_iterator<int>(std::cout, " "));
+	std::cout << std::endl;
+
 }
 
 /* ============================================================================== */
@@ -61,9 +63,6 @@ void PmergeMe::ford_johnson_sort(std::vector<int> &c)
 /* ============================================================================== */
 void PmergeMe::ford_johnson_sort(std::list<int> &c)
 {
-	//std::copy(c.begin(), c.end(), std::ostream_iterator<int>(std::cout, " "));
-	std::cout << std::endl;
-
 	int staggler = c.back();
 	if (is_odd(c))
 		c.pop_back();
@@ -72,8 +71,14 @@ void PmergeMe::ford_johnson_sort(std::list<int> &c)
 	(void) staggler;
 
 	std::list <int_pair> lst_pair = group_pairs< std::list <int_pair> >(c);
+
 	sort_descending(lst_pair);
-	print_pair(lst_pair);
 	merge_sort(lst_pair);
 	print_pair(lst_pair);
+
+	std::list<int> sorted_lst = create_sorted_seq< std::list <int> >(lst_pair);
+	std::copy(sorted_lst.begin(), sorted_lst.end(), std::ostream_iterator<int>(std::cout, " "));
+	std::cout << std::endl;
+
+
 }

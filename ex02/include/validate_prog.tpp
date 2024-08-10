@@ -137,6 +137,21 @@ void merge(P const &left, P const &right, P &container_pairs)
 		container_pairs.push_back(*it_r);
 }
 
+template <typename T, typename P>
+T create_sorted_seq(P const &container_pairs)
+{
+	T sorted_seq;
+
+	typename P::const_iterator it = container_pairs.begin();
+
+	if (it != container_pairs.end())
+		sorted_seq.push_back(it->second);
+	for (; it != container_pairs.end(); it++)
+		sorted_seq.push_back(it->first);
+
+	return (sorted_seq);
+}
+
 /* ============================================================================== */
 /* 									temporary helper							  */
 /* ============================================================================== */

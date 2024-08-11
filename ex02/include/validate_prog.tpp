@@ -88,8 +88,6 @@ void merge_sort(P &container_pairs)
 	if (n <= 1)
 		return ;
 
-	std::cout << AC_CYAN << " == " << container_pairs.size() << " == " << AC_NORMAL << std::endl;
-
 	//typename P::const_iterator it = container_pairs.begin();
 	typename P::iterator it = container_pairs.begin();
 	size_t distance_to_mid = n / 2;

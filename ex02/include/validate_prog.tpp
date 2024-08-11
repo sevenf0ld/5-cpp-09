@@ -20,6 +20,7 @@ int no_dup_seq(T const &container)
 		std::ostringstream dup_strm;
 		dup_strm << *elem;
 		FORMAT_ERR("Duplicate found: " + dup_strm.str());
+		//throw std::invalid_argument("Duplicate found: " + dup_strm.str());
 	}
 
 	return (no_dup);
@@ -35,6 +36,7 @@ int is_sorted_seq(T const &container)
 	int sorted = (elem == ite);
 	if (sorted)
 		FORMAT_ERR("Sequence is sorted.");
+		//throw std::invalid_argument("Sequence is sorted.");
 
 	return (sorted);
 }
@@ -74,8 +76,14 @@ void sort_descending(P &container_pairs)
 {
 	for (typename P::iterator it = container_pairs.begin(); it != container_pairs.end(); it++)
 	{
+		//if (it->second > it->first)
+		//	std::swap(it->second, it->first);
 		if (it->second > it->first)
-			std::swap(it->second, it->first);
+		{
+			int tmp = it->first;
+			it->first = it->second;
+			it->second = tmp;
+		}
 	}
 }
 

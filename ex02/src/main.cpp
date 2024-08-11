@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:38:55 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/11 16:11:28 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/11 20:21:58 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,15 @@ static int positive_int_seq(std::string seq)
 }
 
 /* ============================================================================== */
-/* 								display											  */
+/* 									display										  */
 /* ============================================================================== */
-static void print_elapsed_time(struct timespec start, struct timespec end, size_t n)
+static void print_elapsed_time(struct timespec start, struct timespec end, size_t n, std::string container_type)
 {
 	double diff =  (end.tv_sec - start.tv_sec) * (1e6) + (end.tv_nsec - start.tv_nsec) * (1e-3);
-	std::cout << "Time to process a range of " << n << " elements	:	"
+	std::cout << AC_BOLD << "Time to process a range of " << n << " elements with "
+			  << container_type << "	:	" << AC_NORMAL
 			  << std::fixed << std::setprecision(5) << diff << " µs" << std::endl;
+	std::cout << std::endl;
 }
 
 // sequments to program:
@@ -106,40 +108,169 @@ int main(int argc, char **argv)
 	if (!err_free_count(argc))
 		return (1);
 
-	std::deque<int> unsorted;
 	for (int i = 1; argv[i] != NULL; i++)
 	{
 		if (!positive_int_seq(argv[i]))
 			return (1);
-		unsorted.push_back(atoi(argv[i]));
 	}
-	if (!no_dup_seq(unsorted) || is_sorted_seq(unsorted))
-		return (1);
 
-	std::cout << "Before	:	";
-	std::copy(unsorted.begin(), unsorted.end(), std::ostream_iterator<int>(std::cout, " "));
-	std::cout << std::endl;
+	std::deque<int> tmp;
+	for (int i = 1; argv[i] != NULL; i++)
+		tmp.push_back(atoi(argv[i]));
+	if (!no_dup_seq(tmp) || is_sorted_seq(tmp))
+		return (1);
+	tmp.clear();
 
 	struct timespec start;
 	struct timespec end;
 
-	std::vector<int> vec(unsorted.begin(), unsorted.end());
+/* ============================================================================== */
+/* 										vector									  */
+/* 								data management & sorting						  */
+/* ============================================================================== */
+	FORMAT_TEST("VECTOR");
+
 	clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+
+	std::vector<int> vec;
+	for (int i = 1; argv[i] != NULL; i++)
+		vec.push_back(atoi(argv[i]));
+	std::vector<int> vec_old(vec);
+	//try
+	//{
+	//	no_dup_seq(vec);
+	//	is_sorted_seq(vec);
+
+	//	PmergeMe::ford_johnson_sort(vec);
+
+	//	clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+	//	std::cout << "Before	:	";
+	//	std::copy(vec_old.begin(), vec_old.end(), std::ostream_iterator<int>(std::cout, " "));
+	//	std::cout << std::endl;
+
+	//	std::cout << "After	:	";
+	//	std::copy(vec.begin(), vec.end(), std::ostream_iterator<int>(std::cout, " "));
+	//	std::cout << std::endl;
+
+	//	print_elapsed_time(start, end, vec.size(), "std::vector");
+	//}
+	//catch (const std::invalid_argument &e)
+	//{
+	//	EXCEPTION_MSG(e.what());
+	//}
 	PmergeMe::ford_johnson_sort(vec);
+
 	clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+	std::cout << "Before	:	";
+	std::copy(vec_old.begin(), vec_old.end(), std::ostream_iterator<int>(std::cout, " "));
+	std::cout << std::endl;
+
 	std::cout << "After	:	";
 	std::copy(vec.begin(), vec.end(), std::ostream_iterator<int>(std::cout, " "));
 	std::cout << std::endl;
-	print_elapsed_time(start, end, unsorted.size());
 
-	std::list<int> lst(unsorted.begin(), unsorted.end());
+	print_elapsed_time(start, end, vec.size(), "std::vector");
+
+
+/* ============================================================================== */
+/* 										deque									  */
+/* 								data management & sorting						  */
+/* ============================================================================== */
+	FORMAT_TEST("DEQUE");
+
 	clock_gettime(CLOCK_MONOTONIC_RAW, &start);
-	PmergeMe::ford_johnson_sort(lst);
+
+	std::deque<int> deq;
+	for (int i = 1; argv[i] != NULL; i++)
+		deq.push_back(atoi(argv[i]));
+	std::deque<int> deq_old(deq);
+	//try
+	//{
+	//	no_dup_seq(deq);
+	//	is_sorted_seq(deq);
+
+	//	PmergeMe::ford_johnson_sort(deq);
+
+	//	clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+	//	std::cout << "Before	:	";
+	//	std::copy(deq_old.begin(), deq_old.end(), std::ostream_iterator<int>(std::cout, " "));
+	//	std::cout << std::endl;
+
+	//	std::cout << "After	:	";
+	//	std::copy(deq.begin(), deq.end(), std::ostream_iterator<int>(std::cout, " "));
+	//	std::cout << std::endl;
+
+	//	print_elapsed_time(start, end, deq.size(), "std::deque");
+	//}
+	//catch (const std::invalid_argument &e)
+	//{
+	//	EXCEPTION_MSG(e.what());
+	//}
+	PmergeMe::ford_johnson_sort(deq);
+
 	clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+	std::cout << "Before	:	";
+	std::copy(deq_old.begin(), deq_old.end(), std::ostream_iterator<int>(std::cout, " "));
+	std::cout << std::endl;
+
+	std::cout << "After	:	";
+	std::copy(deq.begin(), deq.end(), std::ostream_iterator<int>(std::cout, " "));
+	std::cout << std::endl;
+
+	print_elapsed_time(start, end, deq.size(), "std::deque");
+
+/* ============================================================================== */
+/* 										list									  */
+/* 								data management & sorting						  */
+/* ============================================================================== */
+	FORMAT_TEST("LIST");
+
+	clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+
+	std::list<int> lst;
+	for (int i = 1; argv[i] != NULL; i++)
+		lst.push_back(atoi(argv[i]));
+	std::list<int> lst_old(lst.begin(), lst.end());
+	//try
+	//{
+	//	no_dup_seq(lst_old);
+	//	is_sorted_seq(lst_old);
+
+	//	PmergeMe::ford_johnson_sort(lst);
+
+	//	clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+	//	std::cout << "Before	:	";
+	//	std::copy(lst_old.begin(), lst_old.end(), std::ostream_iterator<int>(std::cout, " "));
+	//	std::cout << std::endl;
+
+	//	std::cout << "After	:	";
+	//	std::copy(lst.begin(), lst.end(), std::ostream_iterator<int>(std::cout, " "));
+	//	std::cout << std::endl;
+
+	//	print_elapsed_time(start, end, lst.size(), "std::list");
+	//}
+	//catch (const std::invalid_argument &e)
+	//{
+	//	EXCEPTION_MSG(e.what());
+	//}
+	PmergeMe::ford_johnson_sort(lst);
+
+	clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+	std::cout << "Before	:	";
+	std::copy(lst_old.begin(), lst_old.end(), std::ostream_iterator<int>(std::cout, " "));
+	std::cout << std::endl;
+
 	std::cout << "After	:	";
 	std::copy(lst.begin(), lst.end(), std::ostream_iterator<int>(std::cout, " "));
 	std::cout << std::endl;
-	print_elapsed_time(start, end, unsorted.size());
+
+	print_elapsed_time(start, end, lst.size(), "std::list");
 
 	return (0);
 }

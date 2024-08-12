@@ -17,7 +17,7 @@
 
 // Ford-Johnson merge insertion sort
 // a combination of merge-sort and binary-search-insertion
-// 1.	
+// 1.
 
 // Jacobsthal number
 // 0, 1 is the starting sequence given by the notation a, b

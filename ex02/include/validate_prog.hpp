@@ -40,7 +40,7 @@ template <typename T, typename P>
 T create_sorted_seq(P const &container_pairs);
 
 template <typename T, typename P>
-//T create_pend_seq(P container_pairs);
+// T create_pend_seq(P container_pairs);
 T create_pend_seq(P const &container_pairs);
 
 template <typename T>

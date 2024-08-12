@@ -10,7 +10,7 @@ int no_dup_seq(T const &container)
 	// fast random access
 	std::sort(tmp.begin(), tmp.end());
 	// bidirectional sequential access
-	//tmp.sort();
+	// tmp.sort();
 
 	typename T::const_iterator elem = std::adjacent_find(tmp.begin(), tmp.end());
 	// ite is returned if no identical pairs are found
@@ -20,7 +20,7 @@ int no_dup_seq(T const &container)
 		std::ostringstream dup_strm;
 		dup_strm << *elem;
 		FORMAT_ERR("Duplicate found: " + dup_strm.str());
-		//throw std::invalid_argument("Duplicate found: " + dup_strm.str());
+		// throw std::invalid_argument("Duplicate found: " + dup_strm.str());
 	}
 
 	return (no_dup);
@@ -36,7 +36,7 @@ int is_sorted_seq(T const &container)
 	int sorted = (elem == ite);
 	if (sorted)
 		FORMAT_ERR("Sequence is sorted.");
-		//throw std::invalid_argument("Sequence is sorted.");
+		// throw std::invalid_argument("Sequence is sorted.");
 
 	return (sorted);
 }
@@ -76,7 +76,7 @@ void sort_descending(P &container_pairs)
 {
 	for (typename P::iterator it = container_pairs.begin(); it != container_pairs.end(); it++)
 	{
-		//if (it->second > it->first)
+		// if (it->second > it->first)
 		//	std::swap(it->second, it->first);
 		if (it->second > it->first)
 		{
@@ -94,9 +94,9 @@ void merge_sort(P &container_pairs)
 {
 	size_t n = container_pairs.size();
 	if (n <= 1)
-		return ;
+		return;
 
-	//typename P::const_iterator it = container_pairs.begin();
+	// typename P::const_iterator it = container_pairs.begin();
 	typename P::iterator it = container_pairs.begin();
 	size_t distance_to_mid = n / 2;
 	std::advance(it, distance_to_mid);
@@ -159,12 +159,12 @@ T create_sorted_seq(P const &container_pairs)
 }
 
 template <typename T, typename P>
-//T create_pend_seq(P container_pairs)
+// T create_pend_seq(P container_pairs)
 T create_pend_seq(P const &container_pairs)
 {
 	T pending;
 
-	//typename P::iterator it = std::next(container_pairs.begin());
+	// typename P::iterator it = std::next(container_pairs.begin());
 	typename P::const_iterator it = container_pairs.begin();
 	std::advance(it, 1);
 
@@ -184,12 +184,12 @@ void insert_pend_into_sorted(T &sorted, T &pend)
 	size_t n = 3;
 	while (1)
 	{
-		//size_t n = pend.size();
+		// size_t n = pend.size();
 		int index = PmergeMe::generate_jacobsthal_seq(n++);
 		// if index is out of container bounds
-		//if (index >= static_cast<int>(n))
+		// if (index >= static_cast<int>(n))
 		if (index >= static_cast<int>(pend.size()))
-			break ;
+			break;
 
 		typename T::iterator to_insert = pend.begin();
 		std::advance(to_insert, index);
@@ -208,7 +208,7 @@ void insert_pend_into_sorted(T &sorted, T &pend)
 
 /*
 template <typename T>
-typename T::iterator binary_search(T &container, size_t n, int target) 
+typename T::iterator binary_search(T &container, size_t n, int target)
 {
 	std::cout << AC_MAGENTA << "target: " << target
 			  << AC_NORMAL << std::endl;
@@ -239,21 +239,21 @@ typename T::iterator binary_search(T &container, size_t n, int target)
 /* ============================================================================== */
 /* 									temporary helper							  */
 /* ============================================================================== */
-	/*
-	//for (size_t i = 0; i < vec_pair.size(); i++)
-	for (std::vector<int_pair>::iterator it = vec_pair.begin(); it != vec_pair.end(); it++)
-	{
-		//std::cout << vec_pair[i].first << ", " << vec_pair[i].second << std::endl;
-		//std::cout << vec_pair.at(i).first << ", " << vec_pair.at(i).second << std::endl;
-		std::cout << it->first << ", " << it->second << std::endl;
-	}
-	*/
-	/*
-	for (std::list<int_pair>::iterator it = lst_pair.begin(); it != lst_pair.end(); it++)
-	{
-		std::cout << it->first << ", " << it->second << std::endl;
-	}
-	*/
+/*
+//for (size_t i = 0; i < vec_pair.size(); i++)
+for (std::vector<int_pair>::iterator it = vec_pair.begin(); it != vec_pair.end(); it++)
+{
+	//std::cout << vec_pair[i].first << ", " << vec_pair[i].second << std::endl;
+	//std::cout << vec_pair.at(i).first << ", " << vec_pair.at(i).second << std::endl;
+	std::cout << it->first << ", " << it->second << std::endl;
+}
+*/
+/*
+for (std::list<int_pair>::iterator it = lst_pair.begin(); it != lst_pair.end(); it++)
+{
+	std::cout << it->first << ", " << it->second << std::endl;
+}
+*/
 template <typename P>
 void print_pair(P const &container)
 {

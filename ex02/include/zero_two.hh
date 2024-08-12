@@ -34,7 +34,7 @@
 
 #include <utility> // pair, make_pair
 
-//typedef std::pair<int, int> container_pair;
+// typedef std::pair<int, int> container_pair;
 typedef std::pair<int, int> int_pair;
 
 #include <iostream>
@@ -46,10 +46,10 @@ typedef std::pair<int, int> int_pair;
 #include <deque>
 #include <list>
 #include <algorithm> // sort, adjacent_find, copy, swap, lower_bound
-#include <iterator> // ostream_iterator, advance, next
-#include <ctime> // clock_gettime
-#include <ios> // fixed
-#include <iomanip> // setprecision
+#include <iterator>  // ostream_iterator, advance, next
+#include <ctime>     // clock_gettime
+#include <ios>       // fixed
+#include <iomanip>   // setprecision
 #include <stdexcept>
 
 #include "PmergeMe.hpp"

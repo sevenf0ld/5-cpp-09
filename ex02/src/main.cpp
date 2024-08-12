@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:38:55 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/12 14:25:03 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:29:54 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ static int positive_int_seq(std::string seq)
 	while (std::getline(seq_stream, token, ' '))
 	{
 		// to check for non-digits
-		size_t	invalid = token.find_first_not_of("0123456789");
+		size_t invalid = token.find_first_not_of("0123456789");
 		char *wrong;
 		int64_t val = std::strtol(token.c_str(), &wrong, 10);
 		if (invalid != std::string::npos)
 		{
 			// to allow valid leading postive or negative sign
 			if (wrong != NULL && !(std::string(wrong)).empty())
-				//FORMAT_ERR("Non-digit found: " + std::string(wrong) + " in " + token.substr(invalid));
+				// FORMAT_ERR("Non-digit found: " + std::string(wrong) + " in " + token.substr(invalid));
 				return (FORMAT_ERR("Non-digit found: " + std::string(wrong)), FALSE);
 		}
 		// to check for beyond INT_MIN and INT_MAX
@@ -69,7 +69,7 @@ static int positive_int_seq(std::string seq)
 /* ============================================================================== */
 static void print_elapsed_time(struct timespec start, struct timespec end, size_t n, std::string container_type)
 {
-	double diff =  (end.tv_sec - start.tv_sec) * (1e6) + (end.tv_nsec - start.tv_nsec) * (1e-3);
+	double diff = (end.tv_sec - start.tv_sec) * (1e6) + (end.tv_nsec - start.tv_nsec) * (1e-3);
 	std::cout << AC_BOLD << "Time to process a range of " << n << " elements with "
 			  << container_type << "	:	" << AC_NORMAL
 			  << std::fixed << std::setprecision(5) << diff << " µs" << std::endl;
@@ -124,10 +124,10 @@ int main(int argc, char **argv)
 	struct timespec start;
 	struct timespec end;
 
-/* ============================================================================== */
-/* 										vector									  */
-/* 								data management & sorting						  */
-/* ============================================================================== */
+	/* ============================================================================== */
+	/* 										vector									  */
+	/* 								data management & sorting						  */
+	/* ============================================================================== */
 	FORMAT_TEST("VECTOR");
 
 	clock_gettime(CLOCK_MONOTONIC_RAW, &start);
@@ -136,7 +136,7 @@ int main(int argc, char **argv)
 	for (int i = 1; argv[i] != NULL; i++)
 		vec.push_back(atoi(argv[i]));
 	std::vector<int> vec_old(vec);
-	//try
+	// try
 	//{
 	//	no_dup_seq(vec);
 	//	is_sorted_seq(vec);
@@ -155,7 +155,7 @@ int main(int argc, char **argv)
 
 	//	print_elapsed_time(start, end, vec.size(), "std::vector");
 	//}
-	//catch (const std::invalid_argument &e)
+	// catch (const std::invalid_argument &e)
 	//{
 	//	EXCEPTION_MSG(e.what());
 	//}
@@ -167,17 +167,16 @@ int main(int argc, char **argv)
 	std::copy(vec_old.begin(), vec_old.end(), std::ostream_iterator<int>(std::cout, " "));
 	std::cout << std::endl;
 
-	std::cout << "After	:	";
+	std::cout << "After	:	" << AC_GREEN;
 	std::copy(vec.begin(), vec.end(), std::ostream_iterator<int>(std::cout, " "));
-	std::cout << std::endl;
+	std::cout << AC_NORMAL << std::endl;
 
 	print_elapsed_time(start, end, vec.size(), "std::vector");
 
-
-/* ============================================================================== */
-/* 										deque									  */
-/* 								data management & sorting						  */
-/* ============================================================================== */
+	/* ============================================================================== */
+	/* 										deque									  */
+	/* 								data management & sorting						  */
+	/* ============================================================================== */
 	FORMAT_TEST("DEQUE");
 
 	clock_gettime(CLOCK_MONOTONIC_RAW, &start);
@@ -186,7 +185,7 @@ int main(int argc, char **argv)
 	for (int i = 1; argv[i] != NULL; i++)
 		deq.push_back(atoi(argv[i]));
 	std::deque<int> deq_old(deq);
-	//try
+	// try
 	//{
 	//	no_dup_seq(deq);
 	//	is_sorted_seq(deq);
@@ -205,7 +204,7 @@ int main(int argc, char **argv)
 
 	//	print_elapsed_time(start, end, deq.size(), "std::deque");
 	//}
-	//catch (const std::invalid_argument &e)
+	// catch (const std::invalid_argument &e)
 	//{
 	//	EXCEPTION_MSG(e.what());
 	//}
@@ -217,16 +216,16 @@ int main(int argc, char **argv)
 	std::copy(deq_old.begin(), deq_old.end(), std::ostream_iterator<int>(std::cout, " "));
 	std::cout << std::endl;
 
-	std::cout << "After	:	";
+	std::cout << "After	:	" << AC_GREEN;
 	std::copy(deq.begin(), deq.end(), std::ostream_iterator<int>(std::cout, " "));
-	std::cout << std::endl;
+	std::cout << AC_NORMAL << std::endl;
 
 	print_elapsed_time(start, end, deq.size(), "std::deque");
 
-/* ============================================================================== */
-/* 										list									  */
-/* 								data management & sorting						  */
-/* ============================================================================== */
+	/* ============================================================================== */
+	/* 										list									  */
+	/* 								data management & sorting						  */
+	/* ============================================================================== */
 	FORMAT_TEST("LIST");
 
 	clock_gettime(CLOCK_MONOTONIC_RAW, &start);
@@ -235,7 +234,7 @@ int main(int argc, char **argv)
 	for (int i = 1; argv[i] != NULL; i++)
 		lst.push_back(atoi(argv[i]));
 	std::list<int> lst_old(lst);
-	//try
+	// try
 	//{
 	//	no_dup_seq(lst_old);
 	//	is_sorted_seq(lst_old);
@@ -254,7 +253,7 @@ int main(int argc, char **argv)
 
 	//	print_elapsed_time(start, end, lst.size(), "std::list");
 	//}
-	//catch (const std::invalid_argument &e)
+	// catch (const std::invalid_argument &e)
 	//{
 	//	EXCEPTION_MSG(e.what());
 	//}
@@ -266,9 +265,9 @@ int main(int argc, char **argv)
 	std::copy(lst_old.begin(), lst_old.end(), std::ostream_iterator<int>(std::cout, " "));
 	std::cout << std::endl;
 
-	std::cout << "After	:	";
+	std::cout << "After	:	" << AC_GREEN;
 	std::copy(lst.begin(), lst.end(), std::ostream_iterator<int>(std::cout, " "));
-	std::cout << std::endl;
+	std::cout << AC_NORMAL << std::endl;
 
 	print_elapsed_time(start, end, lst.size(), "std::list");
 

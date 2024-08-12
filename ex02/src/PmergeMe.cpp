@@ -21,12 +21,12 @@ PmergeMe::PmergeMe()
 
 PmergeMe::PmergeMe(const PmergeMe &rhs)
 {
-	(void) rhs;
+	(void)rhs;
 }
 
 PmergeMe &PmergeMe::operator=(const PmergeMe &rhs)
 {
-	(void) rhs;
+	(void)rhs;
 	return (*this);
 }
 
@@ -44,16 +44,16 @@ void PmergeMe::ford_johnson_sort(std::vector<int> &c)
 		c.pop_back();
 	else
 		staggler = -1;
-	(void) staggler;
+	(void)staggler;
 
-	std::vector <int_pair> vec_pair = group_pairs< std::vector <int_pair > >(c);
+	std::vector<int_pair> vec_pair = group_pairs<std::vector<int_pair>>(c);
 
 	sort_descending(vec_pair);
 	merge_sort(vec_pair);
 
-	std::vector<int> sorted_vec = create_sorted_seq< std::vector <int> >(vec_pair);
+	std::vector<int> sorted_vec = create_sorted_seq<std::vector<int>>(vec_pair);
 
-	std::vector<int> pending = create_pend_seq< std::vector <int> >(vec_pair);
+	std::vector<int> pending = create_pend_seq<std::vector<int>>(vec_pair);
 
 	insert_pend_into_sorted(sorted_vec, pending);
 
@@ -72,16 +72,16 @@ void PmergeMe::ford_johnson_sort(std::deque<int> &c)
 		c.pop_back();
 	else
 		staggler = -1;
-	(void) staggler;
+	(void)staggler;
 
-	std::deque <int_pair> deq_pair = group_pairs< std::deque <int_pair> >(c);
+	std::deque<int_pair> deq_pair = group_pairs<std::deque<int_pair>>(c);
 
 	sort_descending(deq_pair);
 	merge_sort(deq_pair);
 
-	std::deque<int> sorted_deq = create_sorted_seq< std::deque <int> >(deq_pair);
+	std::deque<int> sorted_deq = create_sorted_seq<std::deque<int>>(deq_pair);
 
-	std::deque<int> pending = create_pend_seq< std::deque <int> >(deq_pair);
+	std::deque<int> pending = create_pend_seq<std::deque<int>>(deq_pair);
 
 	insert_pend_into_sorted(sorted_deq, pending);
 
@@ -100,16 +100,16 @@ void PmergeMe::ford_johnson_sort(std::list<int> &c)
 		c.pop_back();
 	else
 		staggler = -1;
-	(void) staggler;
+	(void)staggler;
 
-	std::list <int_pair> lst_pair = group_pairs< std::list <int_pair> >(c);
+	std::list<int_pair> lst_pair = group_pairs<std::list<int_pair>>(c);
 
 	sort_descending(lst_pair);
 	merge_sort(lst_pair);
 
-	std::list<int> sorted_lst = create_sorted_seq< std::list <int> >(lst_pair);
+	std::list<int> sorted_lst = create_sorted_seq<std::list<int>>(lst_pair);
 
-	std::list<int> pending = create_pend_seq< std::list <int> >(lst_pair);
+	std::list<int> pending = create_pend_seq<std::list<int>>(lst_pair);
 
 	insert_pend_into_sorted(sorted_lst, pending);
 
@@ -127,6 +127,5 @@ int PmergeMe::generate_jacobsthal_seq(size_t n)
 		return (0);
 	if (n == 1)
 		return (1);
-	return (generate_jacobsthal_seq(n - 1)
-			+ (2 * generate_jacobsthal_seq(n - 2)));
+	return (generate_jacobsthal_seq(n - 1) + (2 * generate_jacobsthal_seq(n - 2)));
 }

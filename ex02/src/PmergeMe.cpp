@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:39:08 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/11 20:12:44 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:10:28 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void PmergeMe::ford_johnson_sort(std::vector<int> &c)
 	insert_pend_into_sorted(sorted_vec, pending);
 
 	c.assign(sorted_vec.begin(), sorted_vec.end());
+	if (staggler != -1)
+		c.insert(std::lower_bound(c.begin(), c.end(), staggler), staggler);
 }
 
 /* ============================================================================== */
@@ -84,6 +86,8 @@ void PmergeMe::ford_johnson_sort(std::deque<int> &c)
 	insert_pend_into_sorted(sorted_deq, pending);
 
 	c.assign(sorted_deq.begin(), sorted_deq.end());
+	if (staggler != -1)
+		c.insert(std::lower_bound(c.begin(), c.end(), staggler), staggler);
 }
 
 /* ============================================================================== */
@@ -110,6 +114,8 @@ void PmergeMe::ford_johnson_sort(std::list<int> &c)
 	insert_pend_into_sorted(sorted_lst, pending);
 
 	c.assign(sorted_lst.begin(), sorted_lst.end());
+	if (staggler != -1)
+		c.insert(std::lower_bound(c.begin(), c.end(), staggler), staggler);
 }
 
 /* ============================================================================== */
@@ -117,8 +123,10 @@ void PmergeMe::ford_johnson_sort(std::list<int> &c)
 /* ============================================================================== */
 int PmergeMe::generate_jacobsthal_seq(size_t n)
 {
-	if (n == 0 || n == 1)
-		return (n);
+	if (n <= 0)
+		return (0);
+	if (n == 1)
+		return (1);
 	return (generate_jacobsthal_seq(n - 1)
 			+ (2 * generate_jacobsthal_seq(n - 2)));
 }

@@ -178,24 +178,32 @@ template <typename T>
 void insert_pend_into_sorted(T &sorted, T &pend)
 {
 	// get pend using jacobsthal using pend size
-		// iterate until jacobsthal-th index in pend
+	// iterate until jacobsthal-th index in pend
 	// insert into sorted using binary search
 
+	size_t n = 3;
 	while (1)
 	{
-		size_t n = pend.size();
-		int index = PmergeMe::generate_jacobsthal_seq(n);
+		//size_t n = pend.size();
+		int index = PmergeMe::generate_jacobsthal_seq(n++);
 		// if index is out of container bounds
-		if (index >= static_cast<int>(n))
+		//if (index >= static_cast<int>(n))
+		if (index >= static_cast<int>(pend.size()))
 			break ;
 
 		typename T::iterator to_insert = pend.begin();
 		std::advance(to_insert, index);
+
 		sorted.insert(std::lower_bound(sorted.begin(), sorted.end(), *to_insert), *to_insert);
+
+		*to_insert = -1;
 	}
 
 	for (typename T::iterator it = pend.begin(); it != pend.end(); it++)
-		sorted.insert(std::lower_bound(sorted.begin(), sorted.end(), *it), *it);
+	{
+		if (*it != -1)
+			sorted.insert(std::lower_bound(sorted.begin(), sorted.end(), *it), *it);
+	}
 }
 
 /*

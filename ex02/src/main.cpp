@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:38:55 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/11 20:21:58 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:25:03 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ int main(int argc, char **argv)
 	std::list<int> lst;
 	for (int i = 1; argv[i] != NULL; i++)
 		lst.push_back(atoi(argv[i]));
-	std::list<int> lst_old(lst.begin(), lst.end());
+	std::list<int> lst_old(lst);
 	//try
 	//{
 	//	no_dup_seq(lst_old);

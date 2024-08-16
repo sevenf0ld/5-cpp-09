@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:45:38 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/23 19:18:06 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/13 19:15:08 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ std::ostream &operator<<(std::ostream &out_stream, const std::map<std::string, f
 // a file, format unspecified, subject example is .txt)
 // line		: "date | value"
 // date		: "Y-M-D"
-// valid	: float/+ve int & (0, 100)
+// valid	: float/+ve int & (0, 1000)
 // use at least one std container
 // said container must not be reused in later exercises in this module
 // handle errors with appropriate msgs

@@ -7,9 +7,8 @@ none='\033[m'
 
 # create an array of cmd inv arguments
 args=(
-	"input_valid_1.txt"
-	"input_valid_2.txt"
-	"input_valid_3.txt"
+	"input_line_1.txt"
+	"input_line_2.txt"
 
 	"input_inv_2.txt"
 	"input_inv_3.txt"
@@ -20,8 +19,6 @@ args=(
 	"input_inv_8.txt"
 	"input_inv_9.txt"
 	"input_inv_10.txt"
-	"input_inv_11.txt"
-	"input_inv_12.txt"
 
 	"input_val_3.txt"
 	"input_val_4.txt"

@@ -130,7 +130,7 @@ int BitcoinExchange::validate_date(std::string line)
 	std::size_t found = sub.find('-');
 	std::string tmp(sub.substr(0, found));
 	// can't be reset to a sentinel value such as -1
-	//while (found != std::string::npos)
+	// while (found != std::string::npos)
 	while (flag <= DT)
 	{
 		// YYYY-MM-DD
@@ -248,7 +248,7 @@ void BitcoinExchange::parse_input(char *database)
 		if (BitcoinExchange::validate_delim(line) == 0)
 		{
 			std::getline(input_file, line);
-			continue ;
+			continue;
 		}
 
 		std::stringstream line_stream(line);
@@ -266,10 +266,10 @@ void BitcoinExchange::parse_input(char *database)
 			std::string trimmed_token = trim_str(token);
 			if (trimmed_token.compare("date") != 0 && num_pipe == 0)
 				if (BitcoinExchange::validate_date(trimmed_token) == 0)
-					break ;
+					break;
 			if (trimmed_token.compare("value") != 0 && num_pipe == 1)
 				if (BitcoinExchange::validate_value(trimmed_token) == 0)
-					break ;
+					break;
 
 			num_pipe++;
 		}
@@ -280,11 +280,11 @@ void BitcoinExchange::parse_input(char *database)
 			continue;
 		}
 
-		//if (num_pipe != 2)
+		// if (num_pipe != 2)
 		//{
 		//	FORMAT_ERR("\'" + line + "\'" + " not in line with the format `date | value`: < 2 tokens or all spaces for either");
 		//	return;
-		//}
+		// }
 
 		// match date in input to database
 		if (line.compare("date | value"))
@@ -310,7 +310,7 @@ void BitcoinExchange::match_date(void)
 		if (ite == btc_rate_.begin())
 		{
 			FORMAT_ERR("Date not found in database (lower bound absent).");
-			return ;
+			return;
 		}
 		if (ite != btc_rate_.begin())
 			ite--;

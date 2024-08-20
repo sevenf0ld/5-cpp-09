@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:39:08 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/12 14:10:28 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/20 23:43:06 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void PmergeMe::ford_johnson_sort(std::vector<int> &c)
 		staggler = -1;
 	(void)staggler;
 
-	std::vector<int_pair> vec_pair = group_pairs<std::vector<int_pair>>(c);
+	std::vector<int_pair> vec_pair = group_pairs< std::vector<int_pair> >(c);
 
 	sort_descending(vec_pair);
 	merge_sort(vec_pair);
 
-	std::vector<int> sorted_vec = create_sorted_seq<std::vector<int>>(vec_pair);
+	std::vector<int> sorted_vec = create_sorted_seq< std::vector<int> >(vec_pair);
 
-	std::vector<int> pending = create_pend_seq<std::vector<int>>(vec_pair);
+	std::vector<int> pending = create_pend_seq< std::vector<int> >(vec_pair);
 
 	insert_pend_into_sorted(sorted_vec, pending);
 
@@ -74,14 +74,14 @@ void PmergeMe::ford_johnson_sort(std::deque<int> &c)
 		staggler = -1;
 	(void)staggler;
 
-	std::deque<int_pair> deq_pair = group_pairs<std::deque<int_pair>>(c);
+	std::deque<int_pair> deq_pair = group_pairs< std::deque<int_pair> >(c);
 
 	sort_descending(deq_pair);
 	merge_sort(deq_pair);
 
-	std::deque<int> sorted_deq = create_sorted_seq<std::deque<int>>(deq_pair);
+	std::deque<int> sorted_deq = create_sorted_seq< std::deque<int> >(deq_pair);
 
-	std::deque<int> pending = create_pend_seq<std::deque<int>>(deq_pair);
+	std::deque<int> pending = create_pend_seq< std::deque<int> >(deq_pair);
 
 	insert_pend_into_sorted(sorted_deq, pending);
 
@@ -102,14 +102,14 @@ void PmergeMe::ford_johnson_sort(std::list<int> &c)
 		staggler = -1;
 	(void)staggler;
 
-	std::list<int_pair> lst_pair = group_pairs<std::list<int_pair>>(c);
+	std::list<int_pair> lst_pair = group_pairs< std::list<int_pair> >(c);
 
 	sort_descending(lst_pair);
 	merge_sort(lst_pair);
 
-	std::list<int> sorted_lst = create_sorted_seq<std::list<int>>(lst_pair);
+	std::list<int> sorted_lst = create_sorted_seq< std::list<int> >(lst_pair);
 
-	std::list<int> pending = create_pend_seq<std::list<int>>(lst_pair);
+	std::list<int> pending = create_pend_seq< std::list<int> >(lst_pair);
 
 	insert_pend_into_sorted(sorted_lst, pending);
 

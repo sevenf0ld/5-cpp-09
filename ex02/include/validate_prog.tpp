@@ -36,7 +36,7 @@ int is_sorted_seq(T const &container)
 	int sorted = (elem == ite);
 	if (sorted)
 		FORMAT_ERR("Sequence is sorted.");
-		// throw std::invalid_argument("Sequence is sorted.");
+	// throw std::invalid_argument("Sequence is sorted.");
 
 	return (sorted);
 }

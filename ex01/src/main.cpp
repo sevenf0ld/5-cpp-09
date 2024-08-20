@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 22:47:09 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/24 19:29:46 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/20 23:33:57 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 /* ============================================================================== */
 void validate_notation(std::string expr)
 {
-	if (expr.find_first_not_of("0123456789+-/* ") != std::string::npos
-			|| expr.find_first_not_of("0123456789 ") == std::string::npos
-			|| expr.find_first_not_of("+-/* ") == std::string::npos)
+	// reject if something other than ints or oprs or space is found
+	// reject if only oprs or ints or spaces
+	if (expr.find_first_not_of("0123456789+-/* ") != std::string::npos || expr.find_first_not_of("+-/* ") == std::string::npos || expr.find_first_not_of("0123456789 ") == std::string::npos)
 	{
-		FORMAT_ERR("Only integers (0, 9) and operations {+, -, /, *} allowed.");
+		FORMAT_ERR("Must be only a combination of integers (0, 9) and operations {+, -, /, *}.");
 		exit(EXIT_FAILURE);
 	}
 
@@ -30,6 +30,7 @@ void validate_notation(std::string expr)
 	std::stack<int> tmp;
 	while (std::getline(expr_stream, token, ' '))
 	{
+		// push num onto stack
 		if (token.find_first_not_of("0123456789") == std::string::npos)
 		{
 			int num = atoi(token.c_str());
@@ -40,6 +41,7 @@ void validate_notation(std::string expr)
 			}
 			tmp.push(num);
 		}
+		// pop two numbers of the stack for calculation and push an arbritary number (supposedly the result of the calculation) onto the stack
 		else if (token.find_first_not_of("+-/*") == std::string::npos)
 		{
 			if (tmp.size() < 2)
@@ -57,6 +59,7 @@ void validate_notation(std::string expr)
 			exit(EXIT_FAILURE);
 		}
 	}
+	// the resulting stack must be of size 1 which is the aftermath of all calculations
 	if (tmp.size() != 1)
 	{
 		FORMAT_ERR("Invalid notation.");

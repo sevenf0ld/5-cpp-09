@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:45:38 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/08/13 19:15:08 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:55:08 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,6 @@ int err_free_arg(char **argv, int argc)
 	return (TRUE);
 }
 
-static int is_leap_year(int yr)
-{
-	if (yr % 400 == 0)
-		return (TRUE);
-	else if (yr % 100 == 0)
-		return (FALSE);
-	else if (yr % 4 == 0)
-		return (TRUE);
-
-	return (FALSE);
-}
-
-int err_free_date(tm conv)
-{
-	if (is_leap_year(conv.tm_year + 1900) == FALSE)
-		if (conv.tm_mon + 1 == 2 && conv.tm_mday > 28)
-			return (FORMAT_ERR("Only 28 days in Feb for non-leap years."), FALSE);
-
-	if ((conv.tm_mon + 1 == 4 || conv.tm_mon + 1 == 6 || conv.tm_mon + 1 == 9 || conv.tm_mon + 1 == 11) && conv.tm_mday > 30)
-		return (FORMAT_ERR("Only 30 days in Apr, Jun, Sept and Nov."), FALSE);
-
-	return (TRUE);
-}
-
 std::string trim_str(std::string &str)
 {
 
@@ -69,7 +45,7 @@ std::string trim_str(std::string &str)
 }
 
 /* ============================================================================== */
-/* 								display											  */
+/* 										display									  */
 /* ============================================================================== */
 std::ostream &operator<<(std::ostream &out_stream, const std::map<std::string, float>::iterator &ite)
 {

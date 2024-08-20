@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:46:57 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/24 20:04:19 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:45:24 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 
 #define TRUE 1
 #define FALSE 0
+#define YR 0
+#define MN 1
+#define DT 2
 
 #define FORMAT_ERR(str) std::cerr << AC_RED << str << AC_NORMAL << std::endl
 
@@ -37,11 +40,11 @@
 #include <sstream>
 #include <map>
 #include <ctime>
+#include <cctype>
 
 #include "BitcoinExchange.hpp"
 
 int err_free_arg(int argc, char **argv);
-int err_free_date(tm conv);
 
 std::ostream &operator<<(std::ostream &out_stream, const std::map<std::string, float>::iterator &ite);
 std::string trim_str(std::string &str);

@@ -6,7 +6,7 @@
 /*   By: maiman-m <maiman-m@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:45:48 by maiman-m          #+#    #+#             */
-/*   Updated: 2024/07/24 20:22:19 by maiman-m         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:59:55 by maiman-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,14 @@
 class BitcoinExchange
 {
 public:
+	static int validate_delim(std::string line);
+	static int validate_date(std::string line);
+	static int validate_value(std::string line);
+
 	static void parse_database(void);
 	static void parse_input(char *database);
+
+	static void match_date(void);
 
 	static std::string get_date(void);
 	static float get_value(void);

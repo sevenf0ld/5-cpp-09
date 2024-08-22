@@ -60,7 +60,7 @@ make re --silent
 reset
 
 #if [ $1 -eq "line" ];
-if [ $1 -eq 0 ];
+if [[ $1 -eq 0 ]];
 then
 	for larg in "${line_args[@]}"; do
     	echo -e "$blue $exe $larg: $none"
@@ -69,7 +69,7 @@ then
 fi
 
 #if [ $1 -eq "inv" ];
-if [ $1 -eq 1 ];
+if [[ $1 -eq 1 ]];
 then
 	for iarg in "${inv_args[@]}"; do
 		echo -e "$blue $exe $iarg: $none"
@@ -78,7 +78,7 @@ then
 fi
 
 #if [ $1 -eq "val" ];
-if [ $1 -eq 2 ];
+if [[ $1 -eq 2 ]];
 then
 	for varg in "${val_args[@]}"; do
 		echo -e "$blue $exe $varg: $none"
@@ -87,7 +87,7 @@ then
 fi
 
 #if [ $1 -eq "date" ];
-if [ $1 -eq 3 ];
+if [[ $1 -eq 3 ]];
 then
 	for darg in "${date_args[@]}"; do
 		echo -e "$blue $exe $darg: $none"
@@ -95,7 +95,7 @@ then
 	done
 fi
 
-if [ $1 -eq 6 ];
+if [[ $1 -eq 6 ]];
 then
 	for larg in "${line_args[@]}"; do
     	echo -e "$blue $exe $larg: $none"
